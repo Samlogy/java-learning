@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="add: example collections&#10;* array list&#10;* hash map&#10;* linked list">
-      <change afterPath="$PROJECT_DIR$/src/MyThread.java" afterDir="false" />
+    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="samll editions">
+      <change afterPath="$PROJECT_DIR$/src/Stream.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +23,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="5505c8eb-e9d1-4c6f-97d1-6192a004e605" />
+        <option name="url" value="https://github.com/Samlogy/java-learning.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -36,26 +48,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "onboarding.tips.debug.path": "/home/sma/IdeaProjects/java-learning/src/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/sma/IdeaProjects/java-learning/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Cat" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Cat" />
-      <module name="java-learning" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+}</component>
+  <component name="RunManager" selected="Application.Stream">
     <configuration name="Collection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Collection" />
       <module name="java-learning" />
@@ -84,20 +89,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Stream" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Stream" />
+      <module name="java-learning" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Application.Stream" />
       <item itemvalue="Application.MyThread" />
-      <item itemvalue="Application.Cat" />
       <item itemvalue="Application.Collection" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.MultiThreadingEx" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Stream" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.MyThread" />
         <item itemvalue="Application.MultiThreadingEx" />
         <item itemvalue="Application.Collection" />
-        <item itemvalue="Application.Cat" />
       </list>
     </recent_temporary>
   </component>
@@ -138,7 +150,28 @@
       <option name="project" value="LOCAL" />
       <updated>1685982672348</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add: example of thread &amp; multithreading">
+      <created>1686129520850</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1686129520850</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add: java concepts&#10;* generics&#10;* casting&#10;* data types (primitives / references)&#10;* array / looping example&#10;* static&#10;* serialization&#10;* conditions (if/else - switch)&#10;* exceptions handling">
+      <created>1686129663164</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686129663164</updated>
+    </task>
+    <task id="LOCAL-00007" summary="samll editions">
+      <created>1686129721920</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686129721920</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -157,7 +190,10 @@
     <MESSAGE value="add: classes + define &#10;* dog class&#10;* cat class&#10;* both inherit from Animal &amp; implement interfaces" />
     <MESSAGE value="add: example with polymorphism" />
     <MESSAGE value="add: example collections&#10;* array list&#10;* hash map&#10;* linked list" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: example collections&#10;* array list&#10;* hash map&#10;* linked list" />
+    <MESSAGE value="add: example of thread &amp; multithreading" />
+    <MESSAGE value="add: java concepts&#10;* generics&#10;* casting&#10;* data types (primitives / references)&#10;* array / looping example&#10;* static&#10;* serialization&#10;* conditions (if/else - switch)&#10;* exceptions handling" />
+    <MESSAGE value="samll editions" />
+    <option name="LAST_COMMIT_MESSAGE" value="samll editions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
