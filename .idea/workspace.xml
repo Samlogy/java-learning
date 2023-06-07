@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="add: example with polymorphism">
-      <change afterPath="$PROJECT_DIR$/src/Collection.java" afterDir="false" />
+    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="add: example collections&#10;* array list&#10;* hash map&#10;* linked list">
+      <change afterPath="$PROJECT_DIR$/src/MyThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +28,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2QmFJw91T0QVC2A7H23yca0riHn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -44,14 +48,7 @@
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Collection">
-    <configuration name="Animal" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="Animal" />
-      <module name="java-learning" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Cat" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Cat" />
       <module name="java-learning" />
@@ -73,18 +70,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MultiThreadingEx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MultiThreadingEx" />
+      <module name="java-learning" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyThread" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MyThread" />
+      <module name="java-learning" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Application.MyThread" />
       <item itemvalue="Application.Cat" />
       <item itemvalue="Application.Collection" />
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.Animal" />
+      <item itemvalue="Application.MultiThreadingEx" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Collection" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MyThread" />
+        <item itemvalue="Application.MultiThreadingEx" />
+        <item itemvalue="Application.Collection" />
         <item itemvalue="Application.Cat" />
-        <item itemvalue="Application.Animal" />
       </list>
     </recent_temporary>
   </component>
@@ -118,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685959075365</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add: example collections&#10;* array list&#10;* hash map&#10;* linked list">
+      <created>1685982672348</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685982672348</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -136,7 +156,8 @@
     <MESSAGE value="add: animal class &#10;* set of methods&#10;* set of implements" />
     <MESSAGE value="add: classes + define &#10;* dog class&#10;* cat class&#10;* both inherit from Animal &amp; implement interfaces" />
     <MESSAGE value="add: example with polymorphism" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: example with polymorphism" />
+    <MESSAGE value="add: example collections&#10;* array list&#10;* hash map&#10;* linked list" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: example collections&#10;* array list&#10;* hash map&#10;* linked list" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

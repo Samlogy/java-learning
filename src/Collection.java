@@ -111,6 +111,7 @@ public class Collection {
         names.clear();
         System.out.println("Names after clearing: " + names);
 
+
         System.out.println("\n\n *********************** HASH MAP ***********************\n\n");
         // CREATE
         HashMap<String, Integer> scores = new HashMap<>();

@@ -2,10 +2,16 @@
 public class Cat extends Animal implements Feline, AnimalBehavior {
     private String favoriteToy;
 
+    // overloaded constructors (constructors with different params)
+    public Cat(String name) {
+        super(name);
+    }
+
     public Cat(String name, String favoriteToy) {
         super(name);
         this.favoriteToy = favoriteToy;
     }
+
 
     public String getFavoriteToy() {
         return favoriteToy;

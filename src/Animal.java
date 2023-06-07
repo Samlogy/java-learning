@@ -41,7 +41,7 @@ interface Canidae {
 }
 
 interface AnimalBehavior {
-    abstract void behavior();
+     void behavior();
 }
 
 

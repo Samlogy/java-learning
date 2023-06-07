@@ -10,7 +10,10 @@ public class Dog extends Animal implements Canidae, AnimalBehavior {
     public String getFavoriteToy() {
         return favoriteToy;
     }
-    public void getFavoriteToy(String favoriteToy) {
+    public String getFavoriteToy(String favoriteToy) {
+        return favoriteToy;
+    }
+    public void setFavoriteToy(String favoriteToy) {
         this.favoriteToy = favoriteToy;
     }
 
@@ -22,8 +25,23 @@ public class Dog extends Animal implements Canidae, AnimalBehavior {
     public void nightBlind() {
         System.out.println(getName() + " has no night watch vision :(");
     }
-    public String toString(String name) {
-        return  "My dog's name is: " + name + " favorite toy is: " + getFavoriteToy() + " :(";
+
+    // redefine toString()
+    public String toString() {
+        return  "My dog's name is: "  + " favorite toy is: " + getFavoriteToy() + " :(";
+    }
+
+    // methods that copy an object
+    public void copy(Dog d) {
+        this.setFavoriteToy(d.getFavoriteToy());
+    }
+
+    // overloaded method (share same name but difference in data type, number of parameters)
+    public int todoSomething(int a, int b) {
+        return a + b;
+    }
+    public int todoSomething(int a, int b, int c) {
+        return a + b + c;
     }
 
     @Override
