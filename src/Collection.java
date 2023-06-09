@@ -124,9 +124,6 @@ public class Collection {
         scores.put("Ghiles", 105);
         scores.put("Rachid", 125);
 
-        // ADD ITEMS
-
-
         System.out.println("Scores: " + scores);
 
         // GET ITEM

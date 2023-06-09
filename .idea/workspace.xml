@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="samll editions">
-      <change afterPath="$PROJECT_DIR$/src/Stream.java" afterDir="false" />
+    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="add: stream example">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Collection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +60,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Stream">
+  <component name="RunManager" selected="Application.Personne">
     <configuration name="Collection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Collection" />
       <module name="java-learning" />
@@ -75,15 +75,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MultiThreadingEx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MultiThreadingEx" />
+    <configuration name="MyThread" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MyThread" />
       <module name="java-learning" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyThread" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MyThread" />
+    <configuration name="Personne" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Personne" />
       <module name="java-learning" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -97,19 +97,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Personne" />
       <item itemvalue="Application.Stream" />
       <item itemvalue="Application.MyThread" />
       <item itemvalue="Application.Collection" />
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.MultiThreadingEx" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Personne" />
+        <item itemvalue="Application.Collection" />
+        <item itemvalue="Application.MyThread" />
         <item itemvalue="Application.Stream" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.MyThread" />
-        <item itemvalue="Application.MultiThreadingEx" />
-        <item itemvalue="Application.Collection" />
       </list>
     </recent_temporary>
   </component>
@@ -171,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686129721920</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add: stream example">
+      <created>1686147135349</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1686147135349</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,7 +186,24 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -193,7 +217,8 @@
     <MESSAGE value="add: example of thread &amp; multithreading" />
     <MESSAGE value="add: java concepts&#10;* generics&#10;* casting&#10;* data types (primitives / references)&#10;* array / looping example&#10;* static&#10;* serialization&#10;* conditions (if/else - switch)&#10;* exceptions handling" />
     <MESSAGE value="samll editions" />
-    <option name="LAST_COMMIT_MESSAGE" value="samll editions" />
+    <MESSAGE value="add: stream example" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: stream example" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
