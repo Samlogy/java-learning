@@ -1,7 +1,5 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Personne {
@@ -34,6 +32,18 @@ public class Personne {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Personne personne)) return false;
+        return Objects.equals(name, personne.name) && Objects.equals(lastName, personne.lastName) && Objects.equals(dateOfBirth, personne.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastName, dateOfBirth);
+    }
+
     public static void main(String[] args) {
         Personne p1 = new Personne("sam", "sam", LocalDate.of(1995, 8, 22));
         Personne p2 = new Personne("toc", "toc", LocalDate.of(1981, 5, 15));
@@ -52,12 +62,12 @@ public class Personne {
 
         System.out.println("List after --> ADD: \n" + personnes + "\n");
 
-        final int AGE_LIMIT = 29;
+        final int AGE_LIMIT = 27;
 
         Map<Integer, ArrayList<String>> personnesWithAge = new HashMap<>();
 
         for (Personne p: personnes) {
-            int age = LocalDate.now().getYear() - p.getDateOfBirth().getYear();
+            int age = computeAge(p);
             if (age > AGE_LIMIT) {
                 String fullName = p.getName().toUpperCase() + " " + p.getLastName().toUpperCase();
                 try {
@@ -68,13 +78,11 @@ public class Personne {
             }
         }
 
-//        Map<Integer, ArrayList<String>> personnesWithAge1 = personnes.stream().map(p -> {
-//            int age = LocalDate.now().getYear() - p.getDateOfBirth().getYear();
-//            if (age > AGE_LIMIT) {
-//                String fullName = p.getName().toUpperCase() + " " + p.getLastName().toUpperCase();
-//                personnesWithAge.computeIfAbsent(age, k -> new ArrayList<>()).add(fullName);
-//            }
-//        });
+//        Map<Integer, List<String>> personnesParAge = personnes.stream()
+//                .filter(p -> LocalDate.now().getYear() - p.getDateOfBirth().getYear() > AGE_LIMIT)
+//                .map(p -> p.getName().toUpperCase() + " " + p.getLastName().toUpperCase())
+//                .collect(Collectors.groupingBy(p -> LocalDate.now().getYear() - p.getDateOfBirth().getYear()));
+
 
         System.out.println("Iterate: ");
         // FOR
@@ -84,5 +92,9 @@ public class Personne {
 
         // FOREACH
         personnesWithAge.forEach((key, value) -> System.out.println(key + " - " + value));
+    }
+
+    public static int computeAge(Personne p){
+        return LocalDate.now().getYear() - p.getDateOfBirth().getYear();
     }
 }

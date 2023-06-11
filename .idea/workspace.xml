@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="add: stream example">
+    <list default="true" id="c0b02738-163b-43b4-b729-dc6e0202f898" name="Changes" comment="add: add exercise">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Collection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Personne.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personne.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686147135349</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add: add exercise">
+      <created>1686298360497</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686298360497</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,7 +225,8 @@
     <MESSAGE value="add: java concepts&#10;* generics&#10;* casting&#10;* data types (primitives / references)&#10;* array / looping example&#10;* static&#10;* serialization&#10;* conditions (if/else - switch)&#10;* exceptions handling" />
     <MESSAGE value="samll editions" />
     <MESSAGE value="add: stream example" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: stream example" />
+    <MESSAGE value="add: add exercise" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: add exercise" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
