@@ -8,31 +8,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/annonce")
+@RequestMapping("/api/annonce")
 public class AnnonceController {
 
-    private AnnonceService annonceService;
+    private final AnnonceService annonceService;
 
     @Autowired
     public AnnonceController(AnnonceService annonceService) {
         this.annonceService = annonceService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<Annonce> createAnnonce(@RequestBody Annonce annonce) {
-        Annonce a = annonceService.createAnnonce(annonce);
-        return ResponseEntity.status(HttpStatus.CREATED).body(a);
-    }
-
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<Iterable<Annonce>> getAnnonces() {
-        return ResponseEntity.status(HttpStatus.OK).body(annonceService.getAnnonces());
+        Iterable<Annonce> annonces = annonceService.getAnnonces();
+        return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 
     @GetMapping("/{id}")
     public  ResponseEntity<Annonce> getAnnonceById(@PathVariable Integer id) {
         Annonce annonce = annonceService. getAnnonceById(Math.toIntExact(id));
         return ResponseEntity.status(HttpStatus.OK).body(annonce);
+    }
+
+    @PostMapping
+    public ResponseEntity<Annonce> createAnnonce(@RequestBody Annonce annonce) {
+        Annonce newAnnonce = annonceService.createAnnonce(annonce);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newAnnonce);
     }
 
     @DeleteMapping("/{id}")

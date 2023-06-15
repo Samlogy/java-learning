@@ -1,6 +1,6 @@
 spring:
-  server:
-    port: 4001
+#  server:
+#    port: 4001
   datasource:
     url: jdbc:postgresql://localhost:5432/demoapp
     username: postgres

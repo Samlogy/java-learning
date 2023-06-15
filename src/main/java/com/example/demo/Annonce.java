@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
@@ -19,24 +16,24 @@ public class Annonce {
     private String title;
     @NotBlank(message = "Description is required")
     private String description;
-    @NotBlank(message = "Price is required")
-    private Float price;
+    private double price;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
 
-    @NotBlank(message = "Type is required")
-    private enum type {
-        IMMOBILIER("Immobilier"),
-        VEHICULE("Véhicule"),
-        EMPLOI("Emploi");
-        private  String label;
+    public enum Type {
+        IMMOBILIER,
+        VEHICULE,
+        EMPLOI
+    }
 
-        type(String label) {
-            this.label = label;
-        }
+    public Type getType() {
+        return type;
+    }
 
-        public String getLabel() {
-            return label;
-        }
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Integer getId() {
@@ -63,11 +60,11 @@ public class Annonce {
         this.description = description;
     }
 
-    public Float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

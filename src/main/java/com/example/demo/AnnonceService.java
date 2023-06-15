@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class AnnonceService {
-    private AnnonceRepository annonceRepository;
+    private final AnnonceRepository annonceRepository;
 
     @Autowired
     public AnnonceService(AnnonceRepository annonceRepository) {
@@ -34,6 +34,7 @@ public class AnnonceService {
         existingAnnonce.setTitle(updatedAnnonce.getTitle());
         existingAnnonce.setDescription(updatedAnnonce.getDescription());
         existingAnnonce.setPrice(updatedAnnonce.getPrice());
+        existingAnnonce.setType(updatedAnnonce.getType());
         return annonceRepository.save(existingAnnonce);
     }
 
