@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,16 +16,11 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotBlank(message = "Title is required")
     private String title;
+    @NotBlank(message = "Message is required")
     private String body;
     private Integer userId;
-
-//    public Post(Integer id, String title, String body, String userId) {
-//        this.id = id;
-//        this.title = title;
-//        this.body = body;
-//        this.userId = userId;
-//    }
 
     public Integer getId() {
         return id;
