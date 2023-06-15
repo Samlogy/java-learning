@@ -1,6 +1,17 @@
 spring:
-#  server:
-#    port: 4001
+#  samlogy:
+#    openapi:
+#      dev-url: http://localhost:8080
+  springdoc:
+    api-docs:
+      path: /bezkoder-api-docs
+    packages-to-scan: com.bezkoder.spring.swagger.controller
+    swagger-ui:
+      filter: true
+      operationsSorter: method
+      path: /bezkoder-documentation
+      tagsSorter: alpha
+      tryItOutEnabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/demoapp
     username: postgres
