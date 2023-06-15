@@ -20,12 +20,23 @@ public class Annonce {
     @NotBlank(message = "Description is required")
     private String description;
     @NotBlank(message = "Price is required")
-    private Integer price;
+    private Float price;
+
+
     @NotBlank(message = "Type is required")
     private enum type {
-        IMMOBILIER,
-        VEHICULE,
-        EMPLOI;
+        IMMOBILIER("Immobilier"),
+        VEHICULE("Véhicule"),
+        EMPLOI("Emploi");
+        private  String label;
+
+        type(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
     }
 
     public Integer getId() {
@@ -52,11 +63,11 @@ public class Annonce {
         this.description = description;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

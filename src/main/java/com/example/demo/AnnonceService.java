@@ -2,10 +2,8 @@ package com.example.demo;
 
 
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+
 
 @Service
 public class AnnonceService {
@@ -20,7 +18,7 @@ public class AnnonceService {
         return annonceRepository.findAll();
     }
 
-    public Annonce getAnnonceById(Long id) {
+    public Annonce getAnnonceById(Integer id) {
         return annonceRepository.findById(Math.toIntExact(id))
                 .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
     }
@@ -29,19 +27,19 @@ public class AnnonceService {
         return annonceRepository.save(annonce);
     }
 
-//    public Annonce updatePost(Long id, Annonce updatedAnnonce) {
-//        Annonce existingAnnonce = annonceRepository.findById(Math.toIntExact(id))
-//                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
-//
-//        existingAnnonce.setTitle(updatedAnnonce.getTitle());
-//        existingAnnonce.s(updatedAnnonce.getContent());
-//        return annonceRepository.save(updatedAnnonce);
-//    }
-//
-//    public void deleteAnnonce(Long id) {
-//        Annonce annonce = annonceRepository.findById(Math.toIntExact(id))
-//                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
-//
-//        annonceRepository.delete(annonce);
-//    }
+    public Annonce updateAnnonce(Integer id, Annonce updatedAnnonce) {
+        Annonce existingAnnonce = annonceRepository.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
+
+        existingAnnonce.setTitle(updatedAnnonce.getTitle());
+        existingAnnonce.setDescription(updatedAnnonce.getDescription());
+        existingAnnonce.setPrice(updatedAnnonce.getPrice());
+        return annonceRepository.save(existingAnnonce);
+    }
+
+    public void deleteAnnonce(Integer id) {
+        Annonce annonce = annonceRepository.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
+        annonceRepository.delete(annonce);
+    }
 }
