@@ -1,7 +1,4 @@
 spring:
-#  samlogy:
-#    openapi:
-#      dev-url: http://localhost:8080
   springdoc:
     api-docs:
       path: /samlogy-api-docs
@@ -22,6 +19,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  my:
+    env:
+      myEmail: senanisammy@gmail.com
 #  security:
 #    user:
 #      name: admin
