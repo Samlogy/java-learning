@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface AnnonceRepository extends CrudRepository<Annonce, Integer> {
+@Repository
+public interface AnnonceRepository extends JpaRepository<Annonce, Integer> {
     Annonce findAnnonceById(Integer id);
 }

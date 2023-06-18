@@ -1,11 +1,9 @@
 package com.example.demo;
 
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.List;
 
 
 @Service
@@ -17,13 +15,14 @@ public class AnnonceService {
         this.annonceRepository = annonceRepository;
     }
 
-    public Iterable<Annonce> getAnnonces() {
-        return annonceRepository.findAll();
+    public List<Annonce> getAnnonces() {
+        List<Annonce> annonces = annonceRepository.findAll();
+        return annonces;
     }
 
     public Annonce getAnnonceById(Integer id) {
-        return annonceRepository.findById(Math.toIntExact(id))
-                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
+        return annonceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + /**/id));
     }
 
     public Annonce createAnnonce(Annonce annonce) {
@@ -31,8 +30,9 @@ public class AnnonceService {
     }
 
     public Annonce updateAnnonce(Integer id, Annonce updatedAnnonce) {
-        Annonce existingAnnonce = annonceRepository.findById(Math.toIntExact(id))
-                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
+        Annonce existingAnnonce = annonceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + id));
+
 
         existingAnnonce.setTitle(updatedAnnonce.getTitle());
         existingAnnonce.setDescription(updatedAnnonce.getDescription());
@@ -42,14 +42,8 @@ public class AnnonceService {
     }
 
     public void deleteAnnonce(Integer id) {
-        Annonce annonce = annonceRepository.findById(Math.toIntExact(id))
-                .orElseThrow(() -> new ResourceNotFoundException("Annonce not found with id: " + id));
+        Annonce annonce = annonceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + id));
         annonceRepository.delete(annonce);
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 }

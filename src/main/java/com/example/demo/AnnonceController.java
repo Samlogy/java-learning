@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/annonce")
 public class AnnonceController {
@@ -19,8 +21,9 @@ public class AnnonceController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Annonce>> getAnnonces() {
-        Iterable<Annonce> annonces = annonceService.getAnnonces();
+    public ResponseEntity<List<Annonce>> getAnnonces() {
+        List<Annonce> annonces = annonceService.getAnnonces();
+//        log.info("annonces: "+ annonces);
         return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 
@@ -45,7 +48,12 @@ public class AnnonceController {
     @PutMapping("/{id}")
     public ResponseEntity<Annonce> updateAnnonce(@PathVariable Integer id, @RequestBody Annonce updatedPost) {
         Annonce annonce = annonceService.updateAnnonce(id, updatedPost);
-        return ResponseEntity.status(HttpStatus.OK).body(annonce);
+        return ResponseEntity.status(HttpStatus.CREATED).body(annonce);
     }
 
+//    @ExceptionHandler(GlobalExceptionHandler.class)
+//    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(GlobalExceptionHandler ex) {
+//        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+//    }
 }
