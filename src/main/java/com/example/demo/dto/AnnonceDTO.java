@@ -7,16 +7,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnnonceDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @NotBlank(message = "Title is required")
+    private UUID id;
     private String title;
-    @NotBlank(message = "Description is required")
     private String description;
     private double price;
 

@@ -32,7 +32,7 @@ public class AnnonceService {
         return annonceRepository.save(annonce);
     }
 
-    public Annonce updateAnnonce(Integer id, Annonce updatedAnnonce) {
+    public Annonce updateAnnonce(UUID id, Annonce updatedAnnonce) {
         Annonce existingAnnonce = annonceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + id));
 
@@ -44,7 +44,7 @@ public class AnnonceService {
         return annonceRepository.save(existingAnnonce);
     }
 
-    public void deleteAnnonce(Integer id) {
+    public void deleteAnnonce(UUID id) {
         Annonce annonce = annonceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + id));
         annonceRepository.delete(annonce);

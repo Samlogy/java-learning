@@ -43,20 +43,15 @@ public class AnnonceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Integer id) {;
+    public ResponseEntity<Void> deletePost(@PathVariable UUID id) {;
         annonceService.deleteAnnonce(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Annonce> updateAnnonce(@PathVariable Integer id, @RequestBody Annonce updatedPost) {
+    public ResponseEntity<Annonce> updateAnnonce(@PathVariable UUID id, @RequestBody Annonce updatedPost) {
         Annonce annonce = annonceService.updateAnnonce(id, updatedPost);
         return ResponseEntity.status(HttpStatus.CREATED).body(annonce);
     }
 
-//    @ExceptionHandler(GlobalExceptionHandler.class)
-//    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(GlobalExceptionHandler ex) {
-//        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-//    }
 }
