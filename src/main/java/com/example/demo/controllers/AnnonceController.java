@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -30,8 +31,8 @@ public class AnnonceController {
     }
 
     @GetMapping("/{id}")
-    public  ResponseEntity<Annonce> getAnnonceById(@PathVariable Integer id) {
-        Annonce annonce = annonceService. getAnnonceById(Math.toIntExact(id));
+    public  ResponseEntity<Annonce> getAnnonceById(@PathVariable UUID id) {
+        Annonce annonce = annonceService. getAnnonceById(id);
         return ResponseEntity.status(HttpStatus.OK).body(annonce);
     }
 

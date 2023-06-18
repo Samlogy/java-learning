@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -22,9 +23,9 @@ public class AnnonceService {
         return annonces;
     }
 
-    public Annonce getAnnonceById(Integer id) {
-        return annonceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + /**/id));
+    public Annonce getAnnonceById(UUID id) {
+        return annonceRepository.findAnnonceById(id);
+//                .orElseThrow(() -> new IllegalArgumentException("Annonce not found with id: " + /**/id));
     }
 
     public Annonce createAnnonce(Annonce annonce) {
