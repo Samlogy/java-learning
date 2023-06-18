@@ -1,12 +1,9 @@
 package com.example.demo;
 
-import lombok.*;
+import lombok.Data;
 import org.springframework.context.annotation.Configuration;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @Configuration
 public class AppConfiguration {
 //    @Value("${my.env.myEmail}")

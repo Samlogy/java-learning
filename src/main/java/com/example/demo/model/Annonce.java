@@ -1,18 +1,14 @@
-package com.example.demo;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@Table(name="annonce")
 public class Annonce {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,11 +19,10 @@ public class Annonce {
     private String description;
     private double price;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // lead db with the correct data type
     private Type type;
 
-
-    public enum Type {
+    private enum Type {
         IMMOBILIER,
         VEHICULE,
         EMPLOI

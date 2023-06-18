@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.controllers;
 
+import com.example.demo.model.Annonce;
+import com.example.demo.service.AnnonceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
