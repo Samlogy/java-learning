@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.ErrorResponse;
 import com.example.demo.dto.AnnonceDTO;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Annonce;
 import com.example.demo.service.AnnonceService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class AnnonceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<AnnonceDTO>> getAnnonceById(@PathVariable UUID id) throws ErrorResponse {
+    public ResponseEntity<Optional<AnnonceDTO>> getAnnonceById(@PathVariable UUID id) {
         Optional<AnnonceDTO> annonce = annonceService.getAnnonceById(id);
         return ResponseEntity.status(HttpStatus.OK).body(annonce);
     }
@@ -56,4 +56,11 @@ public class AnnonceController {
         AnnonceDTO updatedAnnonce = annonceService.updateAnnonce(id, annonce);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedAnnonce);
     }
+
+//    @GetMapping("/exception")
+//    public void triggerException() {
+//        if (true) {
+//            throw new NotFoundException("Custom exception occurred!");
+//        }
+//    }
 }

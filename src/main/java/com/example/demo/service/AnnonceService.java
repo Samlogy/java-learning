@@ -5,7 +5,7 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.AnnonceMapper;
 import com.example.demo.repository.AnnonceRepository;
 import com.example.demo.model.Annonce;
-import org.springframework.beans.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
@@ -27,7 +28,7 @@ public class AnnonceService {
 
     }
 
-    public List<AnnonceDTO> getAnnonces() {;
+    public List<AnnonceDTO> getAnnonces() {
         List<Annonce> annonces = annonceRepository.findAll();
         return annonces.stream()
                 .map(annonceMapper::toDTO)
@@ -35,12 +36,15 @@ public class AnnonceService {
     }
 
     public Optional<AnnonceDTO> getAnnonceById(UUID id) {
-        Optional<Annonce> annonce = annonceRepository.findById(id);
-        if (annonce.isPresent()) {
-            return annonce.map(annonceMapper::toDTO);
-        } else {
-            throw new NotFoundException("Annonce not found with ID: " + id);
-        }
+//        Optional<Annonce> annonce = annonceRepository.findById(id);
+//        if (annonce.isPresent()) {
+//            return annonce.map(annonceMapper::toDTO);
+//        } else {
+//            throw new NotFoundException("Annonce not found !");
+//        }
+        Annonce annonce = annonceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Annonce not found !"));
+        return Optional.ofNullable(annonceMapper.toDTO(annonce));
     }
 
     public AnnonceDTO createAnnonce(Annonce annonce) {
