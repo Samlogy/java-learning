@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -18,7 +19,9 @@ public class AnnonceDTO {
     private String title;
     private String description;
     private double price;
-    private Type type;
+    @Enumerated(EnumType.STRING)
+    private Annonce.Type type;
+    LocalDate createdAt;
 
 
     private enum Type {

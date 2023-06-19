@@ -13,7 +13,8 @@ public class AnnonceMapper {
         annonceDTO.setTitle(annonce.getTitle());
         annonceDTO.setDescription(annonce.getDescription());
         annonceDTO.setPrice(annonce.getPrice());
-//        annonceDTO.setType(annonce.getType());
+        annonceDTO.setType(annonce.getType());
+        annonceDTO.setCreatedAt(annonce.getCreatedAt());
         return annonceDTO;
     }
 
@@ -23,7 +24,8 @@ public class AnnonceMapper {
         annonce.setTitle(annonceDTO.getTitle());
         annonce.setDescription(annonceDTO.getDescription());
         annonce.setPrice(annonceDTO.getPrice());
-//        annonce.setType(annonceDTO.getType());
+        annonce.setType(annonceDTO.getType());
+        annonce.setCreatedAt(annonceDTO.getCreatedAt());
         return annonce;
     }
 }

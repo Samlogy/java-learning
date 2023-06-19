@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.ErrorResponse;
 import com.example.demo.dto.AnnonceDTO;
 import com.example.demo.model.Annonce;
 import com.example.demo.service.AnnonceService;
@@ -33,7 +34,7 @@ public class AnnonceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<AnnonceDTO>> getAnnonceById(@PathVariable UUID id) {
+    public ResponseEntity<Optional<AnnonceDTO>> getAnnonceById(@PathVariable UUID id) throws ErrorResponse {
         Optional<AnnonceDTO> annonce = annonceService.getAnnonceById(id);
         return ResponseEntity.status(HttpStatus.OK).body(annonce);
     }

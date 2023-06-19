@@ -22,6 +22,15 @@ spring:
   my:
     env:
       myEmail: senanisammy@gmail.com
+#  flyway:
+#    enabled: true
+#    locations: classpath:db/migration
+#    check-location: true
+#    baselineOnMigrate: true
+#    password: Postgres1618.
+#    url: jdbc:postgresql://localhost:5432/demoapp
+#    user: postgres
+
 #  security:
 #    user:
 #      name: admin

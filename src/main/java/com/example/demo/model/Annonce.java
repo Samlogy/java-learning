@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.AnnonceDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,22 +16,16 @@ public class Annonce {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @NotBlank(message = "Title is required")
     private String title;
-    @NotBlank(message = "Description is required")
     private String description;
     private double price;
-
     @Enumerated(EnumType.STRING)
     private Type type;
     LocalDate createdAt;
-    private enum Type {
+
+    public enum Type {
         IMMOBILIER,
         VEHICULE,
         EMPLOI
     }
-
-
-
-
 }
