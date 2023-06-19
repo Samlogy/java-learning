@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Annonce;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -17,9 +18,8 @@ public class AnnonceDTO {
     private String title;
     private String description;
     private double price;
-
-    @Enumerated(EnumType.STRING)
     private Type type;
+
 
     private enum Type {
         IMMOBILIER,

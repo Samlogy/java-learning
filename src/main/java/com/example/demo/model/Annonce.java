@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -21,14 +22,16 @@ public class Annonce {
     private String description;
     private double price;
 
-    @Enumerated(EnumType.STRING) // lead db with the correct data type
+    @Enumerated(EnumType.STRING)
     private Type type;
-
+    LocalDate createdAt;
     private enum Type {
         IMMOBILIER,
         VEHICULE,
         EMPLOI
     }
+
+
 
 
 }
