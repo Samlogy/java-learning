@@ -6,6 +6,7 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Annonce;
 import com.example.demo.repository.AnnonceRepository;
 import com.example.demo.service.AnnonceService;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,13 +55,19 @@ public class getAnnoncesById {
         AnnonceController controller = new AnnonceController(annonceServiceMock);
         // Arrange
         UUID id = UUID.randomUUID();
+        UUID nonExistingId =UUID.fromString("1d8c1ef0-299a-4d37-aad2-e0cf2b650965");
+
+        // Set up the mock behavior
         when(annonceServiceMock.getAnnonceById(id)).thenReturn(Optional.empty());
 
-        // Call the method being tested
-        ResponseEntity<Optional<AnnonceDTO>> response = controller.getAnnonceById(id);
+        // Define the expected exception
+        NotFoundException exception = Assertions.assertThrows(NotFoundException.class, () -> {
+            controller.getAnnonceById(nonExistingId);
+        });
 
-        // Verify the response
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(Optional.empty(), response.getBody());
+        // Verify response (status code + exception message)
+//        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        Assertions.assertEquals("Annonce not found with ID: " + nonExistingId, exception.getMessage());
+
     }
 }
