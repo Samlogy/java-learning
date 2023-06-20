@@ -48,14 +48,14 @@ public class AnnonceService {
     }
 
     public List<AnnonceDTO> filterAnnonces(String title, Double priceMin, Double priceMax, Annonce.Type type) {
-        List<AnnonceDTO> filteredAnnonces = annonceRepository.findAll().stream()
-                .filter(annonce -> (title != null && !title.isEmpty()) ? annonce.getTitle().toLowerCase().contains(title.toLowerCase()) : true)
+        List<Annonce> annonces = annonceRepository.findAll();
+        return annonces.stream()
+                .filter(annonce -> title == null || title.isEmpty() || annonce.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .filter(annonce -> type == null || annonce.getType() == type)
                 .filter(annonce -> priceMin == null || annonce.getPrice() >= priceMin)
                 .filter(annonce -> priceMax == null || annonce.getPrice() <= priceMax)
                 .map(annonceMapper::toDTO)
                 .collect(Collectors.toList());
-        return filteredAnnonces;
     }
 
     public AnnonceDTO createAnnonce(Annonce annonce) {
