@@ -23,6 +23,12 @@ public class AnnonceDTO {
     private Annonce.Type type;
     LocalDate createdAt;
 
+    public AnnonceDTO(String title, String description, double price, Annonce.Type type) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.type = type;
+    }
 
     private enum Type {
         IMMOBILIER,
