@@ -55,7 +55,7 @@ public class AnnonceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable UUID id) {;
+    public ResponseEntity<Void> deleteAnnonce(@PathVariable UUID id) {;
         annonceService.deleteAnnonce(id);
         return ResponseEntity.noContent().build();
     }
