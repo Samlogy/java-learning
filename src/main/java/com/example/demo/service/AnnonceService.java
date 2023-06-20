@@ -10,6 +10,7 @@ import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,6 +45,17 @@ public class AnnonceService {
         } else {
             throw new NotFoundException("Annonce not found !");
         }
+    }
+
+    public List<AnnonceDTO> filterAnnonces(String title, Double priceMin, Double priceMax, Annonce.Type type) {
+        List<AnnonceDTO> filteredAnnonces = annonceRepository.findAll().stream()
+                .filter(annonce -> (title != null && !title.isEmpty()) ? annonce.getTitle().toLowerCase().contains(title.toLowerCase()) : true)
+                .filter(annonce -> type == null || annonce.getType() == type)
+                .filter(annonce -> priceMin == null || annonce.getPrice() >= priceMin)
+                .filter(annonce -> priceMax == null || annonce.getPrice() <= priceMax)
+                .map(annonceMapper::toDTO)
+                .collect(Collectors.toList());
+        return filteredAnnonces;
     }
 
     public AnnonceDTO createAnnonce(Annonce annonce) {

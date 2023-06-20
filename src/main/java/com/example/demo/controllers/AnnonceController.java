@@ -39,6 +39,15 @@ public class AnnonceController {
         return ResponseEntity.status(HttpStatus.OK).body(annonce);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<AnnonceDTO>> filterAnnonces(@RequestParam(name = "title", required = false) String title,
+                                                        @RequestParam(name = "priceMin", required = false) Double priceMin,
+                                                        @RequestParam(name = "priceMax", required = false) Double priceMax,
+                                                        @RequestParam(name = "type", required = false) Annonce.Type type) {
+        List<AnnonceDTO> annonces = annonceService.filterAnnonces(title, priceMin, priceMax, type);
+        return ResponseEntity.status(HttpStatus.OK).body(annonces);
+    }
+
     @PostMapping
     public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody Annonce annonce) {
         AnnonceDTO newAnnonce = annonceService.createAnnonce(annonce);
@@ -56,11 +65,4 @@ public class AnnonceController {
         AnnonceDTO updatedAnnonce = annonceService.updateAnnonce(id, annonce);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedAnnonce);
     }
-
-//    @GetMapping("/exception")
-//    public void triggerException() {
-//        if (true) {
-//            throw new NotFoundException("Custom exception occurred!");
-//        }
-//    }
 }
