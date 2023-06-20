@@ -23,6 +23,13 @@ public class Annonce {
     private Type type;
     LocalDate createdAt;
 
+    public Annonce(String title, String description, double price, Type type) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.type = type;
+    }
+
     public enum Type {
         IMMOBILIER,
         VEHICULE,
