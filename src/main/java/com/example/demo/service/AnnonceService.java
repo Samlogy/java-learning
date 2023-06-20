@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.AnnonceDTO;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.AnnonceMapper;
 import com.example.demo.repository.AnnonceRepository;
 import com.example.demo.model.Annonce;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +38,23 @@ public class AnnonceService {
     }
 
     public Optional<AnnonceDTO> getAnnonceById(UUID id) {
-//        Optional<Annonce> annonce = annonceRepository.findById(id);
-//        if (annonce.isPresent()) {
-//            return annonce.map(annonceMapper::toDTO);
-//        } else {
-//            throw new NotFoundException("Annonce not found !");
-//        }
-        Annonce annonce = annonceRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Annonce not found !"));
-        return Optional.ofNullable(annonceMapper.toDTO(annonce));
+        Optional<Annonce> annonce = annonceRepository.findById(id);
+        if (annonce.isPresent()) {
+            return annonce.map(annonceMapper::toDTO);
+        } else {
+            throw new NotFoundException("Annonce not found !");
+        }
     }
 
     public AnnonceDTO createAnnonce(Annonce annonce) {
-        annonce.setCreatedAt(LocalDate.now());
-        Annonce savedAnnonce = annonceRepository.save(annonce);
-        return annonceMapper.toDTO(savedAnnonce);
+        if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
+            throw new BadRequestException("Invalid Annonce Data !");
+        }
+        else {
+            annonce.setCreatedAt(LocalDate.now());
+            Annonce savedAnnonce = annonceRepository.save(annonce);
+            return annonceMapper.toDTO(savedAnnonce);
+        }
     }
 
     public AnnonceDTO updateAnnonce(UUID id, Annonce annonce) {
@@ -61,7 +65,7 @@ public class AnnonceService {
             annonceDTO.setTitle(annonce.getTitle());
             annonceDTO.setDescription(annonce.getDescription());
             annonceDTO.setPrice(annonce.getPrice());
-//            annonceDTO.setType(annonce.getType());
+            annonceDTO.setType(annonce.getType());
 
             Annonce annonceToUpdate = annonceMapper.toEntity(annonceDTO);
             Annonce updatedAnnonce = annonceRepository.save(annonceToUpdate);
