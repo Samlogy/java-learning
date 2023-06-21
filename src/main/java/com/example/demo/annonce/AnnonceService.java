@@ -77,7 +77,21 @@ public class AnnonceService {
 
     }
 
+    public AnnonceDTO patchAnnonce(UUID id, AnnonceDTO dto) {
+        Annonce annonceExist = annonceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
 
+        Annonce annonce = annonceMapper.toEntity(dto);
+
+        if (!annonce.getTitle().isEmpty()) annonceExist.setTitle(annonce.getTitle());
+        if (!annonce.getDescription().isEmpty()) annonceExist.setDescription(annonce.getDescription());
+//        if (annonce.getType()) annonceExist.setType(annonce.getType());
+//        if (annonce.getPrice()) annonceExist.setPrice(annonce.getPrice());
+
+        Annonce updatedAnnonce = annonceRepository.save(annonceExist);
+        return annonceMapper.toDTO(updatedAnnonce);
+
+    }
 
     public void deleteAnnonce(UUID id) {
         Annonce annonce = annonceRepository.findById(id)

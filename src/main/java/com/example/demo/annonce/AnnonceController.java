@@ -31,8 +31,8 @@ public class AnnonceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<AnnonceDTO>> getAnnonceById(@PathVariable UUID id) {
-        Optional<AnnonceDTO> annonce = annonceService.getAnnonceById(id);
+    public ResponseEntity<AnnonceDTO> getAnnonceById(@PathVariable UUID id) {
+        AnnonceDTO annonce = annonceService.getAnnonceById(id);
         return ResponseEntity.status(HttpStatus.OK).body(annonce);
     }
 
@@ -63,5 +63,9 @@ public class AnnonceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedAnnonce);
     }
 
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<AnnonceDTO> patchAnnonce(@PathVariable UUID id, @RequestBody AnnonceDTO annonce) {
+        AnnonceDTO patchedAnnonce = annonceService.patchAnnonce(id, annonce);
+        return ResponseEntity.status(HttpStatus.CREATED).body(patchedAnnonce);
+    }
 }
