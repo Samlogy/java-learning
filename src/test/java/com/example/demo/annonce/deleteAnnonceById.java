@@ -46,10 +46,9 @@ public class deleteAnnonceById {
         // Create some sample data
         UUID id = UUID.randomUUID();
         AnnonceDTO existingAnnonce = new AnnonceDTO(id, "Title", "Description", 100.0, Annonce.Type.EMPLOI, LocalDate.now());
-        Optional<AnnonceDTO> existingAnnonceOptional = Optional.of(existingAnnonce);
 
         // Set up the mock behavior
-        Mockito.when(annonceServiceMock.getAnnonceById(id)).thenReturn(existingAnnonceOptional);
+        Mockito.when(annonceServiceMock.getAnnonceById(id)).thenReturn(existingAnnonce);
 
         // Call the method being tested
         ResponseEntity<Void> response = controller.deleteAnnonce(id);
