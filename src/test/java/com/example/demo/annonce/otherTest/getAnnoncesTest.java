@@ -1,9 +1,6 @@
-package com.example.demo.annonce;
+package com.example.demo.annonce.otherTest;
 
-import com.example.demo.annonce.AnnonceController;
-import com.example.demo.annonce.AnnonceDTO;
-import com.example.demo.annonce.Annonce;
-import com.example.demo.annonce.AnnonceService;
+import com.example.demo.annonce.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,10 +1,6 @@
-package com.example.demo.annonce;
+package com.example.demo.annonce.otherTest;
 
-import com.example.demo.annonce.AnnonceController;
-import com.example.demo.annonce.AnnonceDTO;
-import com.example.demo.exception.NotFoundException;
-import com.example.demo.annonce.Annonce;
-import com.example.demo.annonce.AnnonceService;
+import com.example.demo.annonce.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.verify;
@@ -42,14 +37,23 @@ public class getAnnoncesByIdTest {
 
     @Test
     void testGetAnnonceById_NonExistingId() {
-        // Create an instance of the controller / service
-        AnnonceService annonceServiceMock = Mockito.mock(AnnonceService.class);
-        AnnonceController controller = new AnnonceController(annonceServiceMock);
-        // Arrange
-        UUID id = UUID.randomUUID();
-        UUID nonExistingId =UUID.fromString("1d8c1ef0-299a-4d37-aad2-e0cf2b650965");
+//        UUID id = UUID.randomUUID();
+//        when(annonceRepository.findById(id)).thenReturn(Optional.empty());
+//
+//        // Act
+//        Optional<AnnonceDTO> result = annonceService.getAnnonceById(id);
+//
+//        // Assert
+//        assertTrue(result.isEmpty());
 
-        // Set up the mock behavior
+        // Create an instance of the controller / service
+//        AnnonceService annonceServiceMock = Mockito.mock(AnnonceService.class);
+//        AnnonceController controller = new AnnonceController(annonceServiceMock);
+//        // Arrange
+//        UUID id = UUID.randomUUID();
+//        UUID nonExistingId =UUID.fromString("1d8c1ef0-299a-4d37-aad2-e0cf2b650965");
+//
+////         Set up the mock behavior
 //        when(annonceServiceMock.getAnnonceById(id)).thenReturn(Optional.empty());
 //
 //        // Define the expected exception
@@ -63,3 +67,4 @@ public class getAnnoncesByIdTest {
 
     }
 }
+
