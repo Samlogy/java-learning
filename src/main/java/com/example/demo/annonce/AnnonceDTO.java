@@ -16,19 +16,13 @@ public class AnnonceDTO {
     private String title;
     private String description;
     private double price;
-    private Annonce.Type type;
+    private Type type;
     LocalDate createdAt;
 
-    public AnnonceDTO(String title, String description, double price, Annonce.Type type) {
+    public AnnonceDTO(String title, String description, double price, Type type) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.type = type;
-    }
-
-    private enum Type {
-        IMMOBILIER,
-        VEHICULE,
-        EMPLOI
     }
 }

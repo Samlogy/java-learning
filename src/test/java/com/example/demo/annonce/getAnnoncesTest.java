@@ -19,8 +19,8 @@ public class getAnnoncesTest {
         AnnonceService annonceServiceMock = Mockito.mock(AnnonceService.class);
 
         // Create some sample annonces
-        AnnonceDTO a1 = new AnnonceDTO("Title 1", "description 1 ...", 100.0, Annonce.Type.EMPLOI);
-        AnnonceDTO a2 = new AnnonceDTO("Title 2", "description 2 ...", 200.0, Annonce.Type.EMPLOI);
+        AnnonceDTO a1 = new AnnonceDTO("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+        AnnonceDTO a2 = new AnnonceDTO("Title 2", "description 2 ...", 200.0, Type.EMPLOI);
         List<AnnonceDTO> annonces = List.of(a1, a2);
 
         // Set up the mock behavior

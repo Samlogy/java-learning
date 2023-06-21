@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -40,7 +39,7 @@ public class AnnonceController {
     public ResponseEntity<List<AnnonceDTO>> filterAnnonces(@RequestParam(name = "title", required = false) String title,
                                                         @RequestParam(name = "priceMin", required = false) Double priceMin,
                                                         @RequestParam(name = "priceMax", required = false) Double priceMax,
-                                                        @RequestParam(name = "type", required = false) Annonce.Type type) {
+                                                        @RequestParam(name = "type", required = false) Type type) {
         List<AnnonceDTO> annonces = annonceService.filterAnnonces(title, priceMin, priceMax, type);
         return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }

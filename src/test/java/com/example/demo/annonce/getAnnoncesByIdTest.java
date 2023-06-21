@@ -27,7 +27,7 @@ public class getAnnoncesByIdTest {
 
         // Arrange
         UUID id = UUID.randomUUID();
-        AnnonceDTO annonce = new AnnonceDTO(id, "Title", "Description", 100.0, Annonce.Type.IMMOBILIER, LocalDate.now());
+        AnnonceDTO annonce = new AnnonceDTO(id, "Title", "Description", 100.0, Type.IMMOBILIER, LocalDate.now());
 
         // Mock behavior
         when(annonceServiceMock.getAnnonceById(id)).thenReturn(annonce);

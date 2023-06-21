@@ -19,10 +19,10 @@ public class filterAnnoncesTest {
         AnnonceController controller = new AnnonceController(annonceServiceMock);
 
         // Create a list of annonces for testing
-        AnnonceDTO a1 = new AnnonceDTO("Title 1", "Description 1", 100.0, Annonce.Type.IMMOBILIER);
-        AnnonceDTO a2 = new AnnonceDTO("Title 2", "Description 2", 200.0, Annonce.Type.VEHICULE);
-        AnnonceDTO a3 = new AnnonceDTO("Title 3", "Description 3", 300.0, Annonce.Type.EMPLOI);
-        AnnonceDTO a4 = new AnnonceDTO("Title 4", "Description 4", 400.0, Annonce.Type.IMMOBILIER);
+        AnnonceDTO a1 = new AnnonceDTO("Title 1", "Description 1", 100.0, Type.IMMOBILIER);
+        AnnonceDTO a2 = new AnnonceDTO("Title 2", "Description 2", 200.0, Type.VEHICULE);
+        AnnonceDTO a3 = new AnnonceDTO("Title 3", "Description 3", 300.0, Type.EMPLOI);
+        AnnonceDTO a4 = new AnnonceDTO("Title 4", "Description 4", 400.0, Type.IMMOBILIER);
         List<AnnonceDTO> annonces = List.of(a1, a2, a3, a4);
 
 
@@ -32,7 +32,7 @@ public class filterAnnoncesTest {
 //        Assertions.assertEquals(1, filteredByTitle.size());
 
         // Test case 2: Filter by type
-        List<AnnonceDTO> filteredByType = annonceServiceMock.filterAnnonces("Title 1", 100.0, 150.0, Annonce.Type.IMMOBILIER);
+        List<AnnonceDTO> filteredByType = annonceServiceMock.filterAnnonces("Title 1", 100.0, 150.0, Type.IMMOBILIER);
         Assertions.assertEquals(0, filteredByType.size());
 //
 //        // Test case 3: Filter by price range

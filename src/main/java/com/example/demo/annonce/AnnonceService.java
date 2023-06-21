@@ -38,7 +38,8 @@ public class AnnonceService {
         return annonceMapper.toDTO(annonce);
     }
 
-    public List<AnnonceDTO> filterAnnonces(String title, Double priceMin, Double priceMax, Annonce.Type type) {
+    public List<AnnonceDTO> filterAnnonces(String title, Double priceMin, Double priceMax, Type type) {
+        log.info(title, priceMin, priceMax, type);
         List<Annonce> annonces = annonceRepository.findAll();
         return annonces.stream()
                 .filter(annonce -> title == null || title.isEmpty() || annonce.getTitle().toLowerCase().contains(title.toLowerCase()))

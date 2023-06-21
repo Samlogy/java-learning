@@ -25,7 +25,7 @@ public class deleteAnnonceById {
 
         // Arrange
         UUID id = UUID.randomUUID();
-        AnnonceDTO annonce = new AnnonceDTO(id, "Title", "Description", 100.0, Annonce.Type.IMMOBILIER, LocalDate.now());
+        AnnonceDTO annonce = new AnnonceDTO(id, "Title", "Description", 100.0, Type.IMMOBILIER, LocalDate.now());
 
         // Mock behavior
 //        Mockito.when(annonceServiceMock.getAnnonceById(id)).thenReturn(existingAnnonceOptional);
@@ -45,7 +45,7 @@ public class deleteAnnonceById {
 
         // Create some sample data
         UUID id = UUID.randomUUID();
-        AnnonceDTO existingAnnonce = new AnnonceDTO(id, "Title", "Description", 100.0, Annonce.Type.EMPLOI, LocalDate.now());
+        AnnonceDTO existingAnnonce = new AnnonceDTO(id, "Title", "Description", 100.0, Type.EMPLOI, LocalDate.now());
 
         // Set up the mock behavior
         Mockito.when(annonceServiceMock.getAnnonceById(id)).thenReturn(existingAnnonce);

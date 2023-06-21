@@ -35,10 +35,4 @@ public class Annonce {
         this.price = price;
         this.type = type;
     }
-
-    enum Type {
-        IMMOBILIER,
-        VEHICULE,
-        EMPLOI
-    }
 }
