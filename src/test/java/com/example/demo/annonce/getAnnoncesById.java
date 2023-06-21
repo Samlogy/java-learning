@@ -1,28 +1,20 @@
-package com.example.demo;
+package com.example.demo.annonce;
 
-import com.example.demo.controllers.AnnonceController;
-import com.example.demo.dto.AnnonceDTO;
+import com.example.demo.annonce.AnnonceController;
+import com.example.demo.annonce.AnnonceDTO;
 import com.example.demo.exception.NotFoundException;
-import com.example.demo.model.Annonce;
-import com.example.demo.repository.AnnonceRepository;
-import com.example.demo.service.AnnonceService;
-import org.apache.logging.log4j.message.StringFormattedMessage;
+import com.example.demo.annonce.Annonce;
+import com.example.demo.annonce.AnnonceService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

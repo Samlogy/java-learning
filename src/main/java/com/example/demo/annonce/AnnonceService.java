@@ -1,16 +1,10 @@
-package com.example.demo.service;
+package com.example.demo.annonce;
 
-import com.example.demo.dto.AnnonceDTO;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
-import com.example.demo.mapper.AnnonceMapper;
-import com.example.demo.repository.AnnonceRepository;
-import com.example.demo.model.Annonce;
-import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;

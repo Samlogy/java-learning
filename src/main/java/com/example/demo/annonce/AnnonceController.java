@@ -1,9 +1,8 @@
-package com.example.demo.controllers;
+package com.example.demo.annonce;
 
-import com.example.demo.dto.AnnonceDTO;
-import com.example.demo.exception.NotFoundException;
-import com.example.demo.model.Annonce;
-import com.example.demo.service.AnnonceService;
+import com.example.demo.annonce.AnnonceDTO;
+import com.example.demo.annonce.Annonce;
+import com.example.demo.annonce.AnnonceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/annonce")
 public class AnnonceController {
-
     private final AnnonceService annonceService;
 
     @Autowired
@@ -29,7 +27,6 @@ public class AnnonceController {
     @GetMapping
     public ResponseEntity<List<AnnonceDTO>> getAnnonces() {
         List<AnnonceDTO> annonces = annonceService.getAnnonces();
-//        log.info("annonces: "+ annonces);
         return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 

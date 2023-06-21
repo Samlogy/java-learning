@@ -1,11 +1,8 @@
-package com.example.demo.dto;
+package com.example.demo.annonce;
 
-import com.example.demo.model.Annonce;
+import com.example.demo.annonce.Annonce;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDate;

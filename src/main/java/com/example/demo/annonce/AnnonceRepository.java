@@ -1,7 +1,5 @@
-package com.example.demo.repository;
+package com.example.demo.annonce;
 
-import com.example.demo.dto.AnnonceDTO;
-import com.example.demo.model.Annonce;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

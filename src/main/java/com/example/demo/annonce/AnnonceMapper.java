@@ -1,7 +1,5 @@
-package com.example.demo.mapper;
+package com.example.demo.annonce;
 
-import com.example.demo.dto.AnnonceDTO;
-import com.example.demo.model.Annonce;
 import org.springframework.stereotype.Component;
 
 @Component

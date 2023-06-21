@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
             HttpServletRequest request){
         log.error("Ex : "+  ex.getLocalizedMessage()+  " - "+ request.getRequestURI() );
 
-        APIError err = new APIError(ex.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR,new Date());
+        APIError err = new APIError(ex.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR, new Date());
         return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

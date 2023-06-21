@@ -1,6 +1,5 @@
-package com.example.demo.model;
+package com.example.demo.annonce;
 
-import com.example.demo.dto.AnnonceDTO;
 import jakarta.persistence.*;
 import lombok.*;
 

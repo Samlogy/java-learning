@@ -1,9 +1,9 @@
-package com.example.demo;
+package com.example.demo.annonce;
 
-import com.example.demo.controllers.AnnonceController;
-import com.example.demo.dto.AnnonceDTO;
-import com.example.demo.model.Annonce;
-import com.example.demo.service.AnnonceService;
+import com.example.demo.annonce.AnnonceController;
+import com.example.demo.annonce.AnnonceDTO;
+import com.example.demo.annonce.Annonce;
+import com.example.demo.annonce.AnnonceService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class postAnnonceTest {
