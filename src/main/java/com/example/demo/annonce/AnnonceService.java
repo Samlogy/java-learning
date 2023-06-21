@@ -32,13 +32,10 @@ public class AnnonceService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<AnnonceDTO> getAnnonceById(UUID id) {
-        Optional<Annonce> annonce = annonceRepository.findById(id);
-        if (annonce.isPresent()) {
-            return annonce.map(annonceMapper::toDTO);
-        } else {
-            throw new NotFoundException("Annonce not found !");
-        }
+    public AnnonceDTO getAnnonceById(UUID id) {
+        Annonce annonce = annonceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
+        return annonceMapper.toDTO(annonce);
     }
 
     public List<AnnonceDTO> filterAnnonces(String title, Double priceMin, Double priceMax, Annonce.Type type) {
@@ -52,41 +49,39 @@ public class AnnonceService {
                 .collect(Collectors.toList());
     }
 
-    public AnnonceDTO createAnnonce(Annonce annonce) {
-        if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
+    public AnnonceDTO createAnnonce(AnnonceDTO dto) {
+        if (dto.getTitle() == null || dto.getType() == null || dto.getDescription() == null) {
             throw new BadRequestException("Invalid Annonce Data !");
         }
         else {
+            Annonce annonce = annonceMapper.toEntity(dto);
             annonce.setCreatedAt(LocalDate.now());
             Annonce savedAnnonce = annonceRepository.save(annonce);
             return annonceMapper.toDTO(savedAnnonce);
         }
     }
 
-    public AnnonceDTO updateAnnonce(UUID id, Annonce annonce) {
-        Optional<Annonce> existingAnnonce = annonceRepository.findById(id);
-        if (existingAnnonce.isPresent()) {
-            AnnonceDTO annonceDTO = annonceMapper.toDTO(annonce);
+    public AnnonceDTO updateAnnonce(UUID id, AnnonceDTO dto) {
+        Annonce annonceExist = annonceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
 
-            annonceDTO.setTitle(annonce.getTitle());
-            annonceDTO.setDescription(annonce.getDescription());
-            annonceDTO.setPrice(annonce.getPrice());
-            annonceDTO.setType(annonce.getType());
+        Annonce annonce = annonceMapper.toEntity(dto);
 
-            Annonce annonceToUpdate = annonceMapper.toEntity(annonceDTO);
-            Annonce updatedAnnonce = annonceRepository.save(annonceToUpdate);
-            return annonceMapper.toDTO(updatedAnnonce);
-        } else {
-            throw new NotFoundException("Annonce not found with ID: " + id);
-        }
+        annonceExist.setTitle(annonce.getTitle());
+        annonceExist.setDescription(annonce.getDescription());
+        annonceExist.setPrice(annonce.getPrice());
+        annonceExist.setType(annonce.getType());
+
+        Annonce updatedAnnonce = annonceRepository.save(annonceExist);
+        return annonceMapper.toDTO(updatedAnnonce);
+
     }
 
+
+
     public void deleteAnnonce(UUID id) {
-        Optional<Annonce> annonce = annonceRepository.findById(id);
-        if (annonce.isPresent()) {
-            annonceRepository.deleteById(annonce.get().getId());
-        } else {
-            throw new NotFoundException("Annonce not found with ID: " + id);
-        }
+        Annonce annonce = annonceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
+        annonceRepository.deleteById(annonce.getId());
     }
 }

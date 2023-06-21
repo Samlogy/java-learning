@@ -22,7 +22,7 @@ public class postAnnonceTest {
 
         // Create some sample annonces
         UUID id = UUID.randomUUID();
-        Annonce annonceToPost = new Annonce("Title", "Description", 100.0, Annonce.Type.IMMOBILIER);
+        AnnonceDTO annonceToPost = new AnnonceDTO("Title", "Description", 100.0, Annonce.Type.IMMOBILIER);
         AnnonceDTO annoncePosted = new AnnonceDTO(id, "Title", "Description", 100.0, Annonce.Type.IMMOBILIER, LocalDate.now());
 
         // Set up the mock behavior

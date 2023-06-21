@@ -36,7 +36,7 @@ public class Annonce {
         this.type = type;
     }
 
-    public enum Type {
+    enum Type {
         IMMOBILIER,
         VEHICULE,
         EMPLOI

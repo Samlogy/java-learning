@@ -46,7 +46,7 @@ public class AnnonceController {
     }
 
     @PostMapping
-    public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody Annonce annonce) {
+    public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody AnnonceDTO annonce) {
         AnnonceDTO newAnnonce = annonceService.createAnnonce(annonce);
         return ResponseEntity.status(HttpStatus.CREATED).body(newAnnonce);
     }
@@ -58,8 +58,10 @@ public class AnnonceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AnnonceDTO> updateAnnonce(@PathVariable UUID id, @RequestBody Annonce annonce) {
+    public ResponseEntity<AnnonceDTO> updateAnnonce(@PathVariable UUID id, @RequestBody AnnonceDTO annonce) {
         AnnonceDTO updatedAnnonce = annonceService.updateAnnonce(id, annonce);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedAnnonce);
     }
+
+
 }

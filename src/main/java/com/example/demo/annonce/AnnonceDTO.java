@@ -16,7 +16,6 @@ public class AnnonceDTO {
     private String title;
     private String description;
     private double price;
-    @Enumerated(EnumType.STRING)
     private Annonce.Type type;
     LocalDate createdAt;
 
@@ -32,6 +31,4 @@ public class AnnonceDTO {
         VEHICULE,
         EMPLOI
     }
-
-
 }

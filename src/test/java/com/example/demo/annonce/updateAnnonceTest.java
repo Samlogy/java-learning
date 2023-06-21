@@ -22,8 +22,8 @@ public class updateAnnonceTest {
 
         // Create some sample annonces
         UUID id = UUID.randomUUID();
-        Annonce annonceToUpdate = new Annonce(id, "Title", "Description", 100.0, Annonce.Type.IMMOBILIER);
         AnnonceDTO annonceUpdated = new AnnonceDTO(id, "Title", "Description", 100.0, Annonce.Type.IMMOBILIER, LocalDate.now());
+        AnnonceDTO annonceToUpdate = new AnnonceDTO("Title", "Description", 100.0, Annonce.Type.IMMOBILIER);
 
         // Set up the mock behavior
         Mockito.when(annonceServiceMock.updateAnnonce(id, annonceToUpdate)).thenReturn(annonceUpdated);
