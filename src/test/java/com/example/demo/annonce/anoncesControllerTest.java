@@ -10,6 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
@@ -38,4 +39,20 @@ public class anoncesControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$").isArray());
     }
+
+//    @Test
+//    public void testFilterAnnonces() throws Exception {
+//        Annonce a1 = new Annonce("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+//        Annonce a2 = new Annonce("Title 2", "description 2 ...", 200.0, Type.IMMOBILIER);
+//        Annonce a3 = new Annonce("Title 3", "description 3 ...", 100.0, Type.VEHICULE);
+//        List<Annonce> expected1 = List.of(a1);
+//
+//        when(annonceService.getAnnonces()).thenReturn(Collections.singletonList(annonce));
+//        mockMvc.perform(get("/api/annonce/filter"))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$", hasSize(1)))
+//                .andExpect(jsonPath("$").isArray());
+//    }
 }
