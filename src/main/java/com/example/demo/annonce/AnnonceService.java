@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -22,31 +21,31 @@ public class AnnonceService {
     public AnnonceService(AnnonceRepository annonceRepository, AnnonceMapper annonceMapper) {
         this.annonceRepository = annonceRepository;
         this.annonceMapper = annonceMapper;
-
     }
-
-    public List<AnnonceDTO> getAnnonces() {
+    public List<Annonce> getAnnonces() {
         List<Annonce> annonces = annonceRepository.findAll();
-        return annonces.stream()
-                .map(annonceMapper::toDTO)
-                .collect(Collectors.toList());
+        return annonces;
     }
 
-    public AnnonceDTO getAnnonceById(UUID id) {
+    public Annonce getAnnonceById(UUID id) {
         Annonce annonce = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
-        return annonceMapper.toDTO(annonce);
+        return annonce;
     }
 
-    public List<AnnonceDTO> filterAnnonces(String title, Double priceMin, Double priceMax, Type type) {
+    public List<Annonce> filterAnnonces(String title, Double priceMin, Double priceMax, Type type) {
         // Solution 1: create fillter(repo) + custom query
-        List<Annonce> annonces = annonceRepository.filterAnnonces(title, type, priceMin, priceMax);
-        return annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
+        return annonceRepository.filterAnnonces(title, type, priceMin, priceMax);
 
         // Solution 2:
+//        Specification<Annonce> spec = annonceSpecification.filterByParams(title, priceMin, priceMax, type);
+//        List<Annonce> annonces = annonceRepository.findAll(spec);
+//        return annonces.stream()
+//                .map(annonceMapper::toDTO)
+//                .collect(Collectors.toList());
     }
 
-    public AnnonceDTO createAnnonce(AnnonceDTO dto) {
+    public Annonce createAnnonce(AnnonceDTO dto) {
         if (dto.getTitle() == null || dto.getType() == null || dto.getDescription() == null) {
             throw new BadRequestException("Invalid Annonce Data !");
         }
@@ -54,11 +53,11 @@ public class AnnonceService {
             Annonce annonce = annonceMapper.toEntity(dto);
             annonce.setCreatedAt(LocalDate.now());
             Annonce savedAnnonce = annonceRepository.save(annonce);
-            return annonceMapper.toDTO(savedAnnonce);
+            return savedAnnonce;
         }
     }
 
-    public AnnonceDTO updateAnnonce(UUID id, AnnonceDTO dto) {
+    public Annonce updateAnnonce(UUID id, AnnonceDTO dto) {
         Annonce annonceExist = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
 
@@ -70,11 +69,11 @@ public class AnnonceService {
         annonceExist.setType(annonce.getType());
 
         Annonce updatedAnnonce = annonceRepository.save(annonceExist);
-        return annonceMapper.toDTO(updatedAnnonce);
+        return updatedAnnonce;
 
     }
 
-    public AnnonceDTO patchAnnonce(UUID id, AnnonceDTO dto) {
+    public Annonce patchAnnonce(UUID id, AnnonceDTO dto) {
         Annonce annonceExist = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
 
@@ -82,11 +81,9 @@ public class AnnonceService {
 
         if (!annonce.getTitle().isEmpty()) annonceExist.setTitle(annonce.getTitle());
         if (!annonce.getDescription().isEmpty()) annonceExist.setDescription(annonce.getDescription());
-//        if (annonce.getType()) annonceExist.setType(annonce.getType());
-//        if (annonce.getPrice()) annonceExist.setPrice(annonce.getPrice());
 
-        Annonce updatedAnnonce = annonceRepository.save(annonceExist);
-        return annonceMapper.toDTO(updatedAnnonce);
+        Annonce patchedAnnonce = annonceRepository.save(annonceExist);
+        return patchedAnnonce;
 
     }
 
