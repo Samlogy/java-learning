@@ -1,16 +1,15 @@
-package com.example.demo.units;
+package com.example.demo.annonce;
 
-import com.example.demo.annonce.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.List;
+
+import java.util.Collections;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
@@ -28,23 +27,15 @@ public class anoncesControllerTest {
     @MockBean
     private AnnonceService annonceService;
 
-    private Annonce annonce;
-    private List<AnnonceDTO> annonces;
-
-    @BeforeAll
-    public void setup() {
-        AnnonceDTO a1 = new AnnonceDTO("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
-        AnnonceDTO a2 = new AnnonceDTO("Title 2", "description 2 ...", 200.0, Type.EMPLOI);
-        List<AnnonceDTO> annonces = List.of(a1, a2);
-    }
-
     @Test
     public void testGetAnnonces() throws Exception {
-        when(annonceService.getAnnonces()).thenReturn(annonces);
+        AnnonceDTO dto = new AnnonceDTO("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+        when(annonceService.getAnnonces()).thenReturn(Collections.singletonList(dto));
         mockMvc.perform(get("/api/annonce"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$").isArray());
     }
-
-
 }
