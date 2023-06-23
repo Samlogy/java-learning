@@ -1,9 +1,13 @@
 package com.example.demo.annonce;
-
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-@Component
-public class AnnonceMapper {
+import java.beans.JavaBean;
+
+@JavaBean
+public abstract class AnnonceMapper {
 
     public AnnonceDTO toDTO(Annonce annonce) {
         AnnonceDTO annonceDTO = new AnnonceDTO();

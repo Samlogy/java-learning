@@ -8,19 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.List;
 
 @Slf4j
 @Service
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
-    private final AnnonceMapper annonceMapper;
-
     @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository, AnnonceMapper annonceMapper) {
+    public AnnonceService(AnnonceRepository annonceRepository) {
         this.annonceRepository = annonceRepository;
-        this.annonceMapper = annonceMapper;
     }
     public List<Annonce> getAnnonces() {
         return annonceRepository.findAll();
@@ -57,16 +53,12 @@ public class AnnonceService {
         Annonce annonceExist = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
 
-
-
         annonceExist.setTitle(annonce.getTitle());
         annonceExist.setDescription(annonce.getDescription());
         annonceExist.setPrice(annonce.getPrice());
         annonceExist.setType(annonce.getType());
 
-        Annonce updatedAnnonce = annonceRepository.save(annonceExist);
-        return updatedAnnonce;
-
+        return annonceRepository.save(annonceExist);
     }
 
     public Annonce patchAnnonce(UUID id, Annonce annonce) {
