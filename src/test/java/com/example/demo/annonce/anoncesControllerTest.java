@@ -29,8 +29,8 @@ public class anoncesControllerTest {
 
     @Test
     public void testGetAnnonces() throws Exception {
-        AnnonceDTO dto = new AnnonceDTO("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
-        when(annonceService.getAnnonces()).thenReturn(Collections.singletonList(dto));
+        Annonce annonce = new Annonce("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+        when(annonceService.getAnnonces()).thenReturn(Collections.singletonList(annonce));
         mockMvc.perform(get("/api/annonce"))
                 .andDo(print())
                 .andExpect(status().isOk())
