@@ -23,14 +23,12 @@ public class AnnonceService {
         this.annonceMapper = annonceMapper;
     }
     public List<Annonce> getAnnonces() {
-        List<Annonce> annonces = annonceRepository.findAll();
-        return annonces;
+        return annonceRepository.findAll();
     }
 
     public Annonce getAnnonceById(UUID id) {
-        Annonce annonce = annonceRepository.findById(id)
+        return annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
-        return annonce;
     }
 
     public List<Annonce> filterAnnonces(String title, Double priceMin, Double priceMax, Type type) {
@@ -45,23 +43,21 @@ public class AnnonceService {
 //                .collect(Collectors.toList());
     }
 
-    public Annonce createAnnonce(AnnonceDTO dto) {
-        if (dto.getTitle() == null || dto.getType() == null || dto.getDescription() == null) {
+    public Annonce createAnnonce(Annonce annonce) {
+        if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
             throw new BadRequestException("Invalid Annonce Data !");
         }
         else {
-            Annonce annonce = annonceMapper.toEntity(dto);
             annonce.setCreatedAt(LocalDate.now());
-            Annonce savedAnnonce = annonceRepository.save(annonce);
-            return savedAnnonce;
+            return annonceRepository.save(annonce);
         }
     }
 
-    public Annonce updateAnnonce(UUID id, AnnonceDTO dto) {
+    public Annonce updateAnnonce(UUID id, Annonce annonce) {
         Annonce annonceExist = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
 
-        Annonce annonce = annonceMapper.toEntity(dto);
+
 
         annonceExist.setTitle(annonce.getTitle());
         annonceExist.setDescription(annonce.getDescription());
@@ -73,18 +69,14 @@ public class AnnonceService {
 
     }
 
-    public Annonce patchAnnonce(UUID id, AnnonceDTO dto) {
+    public Annonce patchAnnonce(UUID id, Annonce annonce) {
         Annonce annonceExist = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
-
-        Annonce annonce = annonceMapper.toEntity(dto);
 
         if (!annonce.getTitle().isEmpty()) annonceExist.setTitle(annonce.getTitle());
         if (!annonce.getDescription().isEmpty()) annonceExist.setDescription(annonce.getDescription());
 
-        Annonce patchedAnnonce = annonceRepository.save(annonceExist);
-        return patchedAnnonce;
-
+        return annonceRepository.save(annonceExist);
     }
 
     public void deleteAnnonce(UUID id) {

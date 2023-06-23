@@ -26,7 +26,8 @@ public class AnnonceController {
     @GetMapping
     public ResponseEntity<List<Annonce>> getAnnonces() {
         List<Annonce> annonces = annonceService.getAnnonces();
-        List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
+//        List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
+//        return ResponseEntity.status(HttpStatus.OK).body(dto);
         return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 
@@ -47,7 +48,8 @@ public class AnnonceController {
     }
 
     @PostMapping
-    public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody AnnonceDTO annonce) {
+    public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody AnnonceDTO dto) {
+        Annonce annonce = annonceMapper.toEntity(dto);
         Annonce createdAnnonce = annonceService.createAnnonce(annonce);
         return ResponseEntity.status(HttpStatus.CREATED).body(annonceMapper.toDTO(createdAnnonce));
     }
@@ -59,14 +61,18 @@ public class AnnonceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AnnonceDTO> updateAnnonce(@PathVariable UUID id, @RequestBody AnnonceDTO annonce) {
+    public ResponseEntity<AnnonceDTO> updateAnnonce(@PathVariable UUID id, @RequestBody AnnonceDTO dto) {
+        Annonce annonce = annonceMapper.toEntity(dto);
         Annonce updatedAnnonce = annonceService.updateAnnonce(id, annonce);
-        return ResponseEntity.status(HttpStatus.CREATED).body(annonceMapper.toDTO(updatedAnnonce));
+        AnnonceDTO updatedDto = annonceMapper.toDTO(updatedAnnonce);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedDto);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<AnnonceDTO> patchAnnonce(@PathVariable UUID id, @RequestBody AnnonceDTO annonce) {
+    public ResponseEntity<AnnonceDTO> patchAnnonce(@PathVariable UUID id, @RequestBody AnnonceDTO dto) {
+        Annonce annonce = annonceMapper.toEntity(dto);
         Annonce patchedAnnonce = annonceService.patchAnnonce(id, annonce);
-        return ResponseEntity.status(HttpStatus.CREATED).body(annonceMapper.toDTO(patchedAnnonce));
+        AnnonceDTO patchedDto = annonceMapper.toDTO(patchedAnnonce);
+        return ResponseEntity.status(HttpStatus.CREATED).body(patchedDto);
     }
 }
