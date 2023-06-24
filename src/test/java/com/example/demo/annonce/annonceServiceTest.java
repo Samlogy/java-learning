@@ -41,7 +41,7 @@ public class annonceServiceTest {
         // title != null
         when(annonceRepository.filterAnnonces("Title 1", null, null, null)).thenReturn(expected1);
 
-        List<Annonce> annonceList1 = annonceService.filterAnnonces("Title 1", null, null, null);
+        List<Annonce> annonceList1 = annonceRepository.filterAnnonces("Title 1", null, null, null);
         assertEquals(1, annonceList1.size());
         assertEquals("Title 1", annonceList1.get(0).getTitle());
 
