@@ -3,6 +3,8 @@ package com.example.demo.annonce;
 //public class annonceApiIntegrationTest {
 //}
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 //import java.net.http.HttpHeaders;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.http.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -40,14 +44,13 @@ public class annonceApiIntegrationTest {
 
     private static HttpHeaders headers;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     public static void init() {
         headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
     }
-
-
 
     @Test
     @Sql(statements = "INSERT INTO annonce (id, title, description, price, type)" + "VALUES ('8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa', 'Sample Title', 'Sample Description', 100.0, 'EMPLOI');", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -107,7 +110,31 @@ public class annonceApiIntegrationTest {
         assertEquals(expected4.size(), annonceRepository.filterAnnonces(null, null, null, 100000.0).size());
     }
 
+    @Test
+    @Sql(statements = "DELETE FROM orders WHERE id='8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa'", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    public void testCreateAnnonce() throws JsonProcessingException {
+        UUID id = UUID.fromString("8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa");
+        Annonce annonce = new Annonce(id, "Title 0", "description 0 ...", 150.0, Type.VEHICULE);
+        HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(annonce), headers);
+        ResponseEntity<Annonce> response = restTemplate.exchange(
+                createURLWithPort(""), HttpMethod.POST, entity, Annonce.class);
+        assertEquals(response.getStatusCodeValue(), 201);
+        Annonce result = Objects.requireNonNull(response.getBody());
+        assertEquals(result.getTitle(), "Title 0");
+        assertEquals(result.getTitle(), annonceRepository.save(annonce).getType());
+    }
 
+    @Test
+    @Sql(statements = "INSERT INTO orders(id, buyer, price, qty) VALUES (6, 'alex', 75.0, 3)", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(statements = "DELETE FROM orders WHERE id='8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa'", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    public void testDeleteAnnonce() {
+        UUID id = UUID.fromString("8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa");
+        ResponseEntity<String> response = restTemplate.exchange(
+                createURLWithPort("/"+id), HttpMethod.DELETE, null, String.class);
+        String annocneRes = response.getBody();
+        assertEquals(response.getStatusCodeValue(), 205);
+        assertNotNull(annocneRes);
+    }
 
     private String createURLWithPort(String path) {
         return "http://localhost:" + port + "/api/annonce" + path;
