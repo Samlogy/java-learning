@@ -1,20 +1,24 @@
 package com.example.demo.annonce;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,9 +32,19 @@ public class anoncesControllerTest {
     @MockBean
     private AnnonceService annonceService;
 
+    private Annonce annonce;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @BeforeEach
+    public void setup() {
+        UUID id = UUID.randomUUID();
+        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+    }
+
+
     @Test
     public void testGetAnnonces() throws Exception {
-        Annonce annonce = new Annonce("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+
         when(annonceService.getAnnonces()).thenReturn(Collections.singletonList(annonce));
         mockMvc.perform(get("/api/annonce"))
                 .andDo(print())
@@ -85,5 +99,60 @@ public class anoncesControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    public void testGetAnnonceyId() throws Exception {
+        when(annonceService.getAnnonceById(annonce.getId())).thenReturn(annonce);
+        mockMvc.perform(get("/api/annonce/" + annonce.getId()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title", is("Title 1")))
+                .andExpect(jsonPath("$.type", is(Type.EMPLOI)))
+                .andExpect(jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    public void testCreateAnnonce() throws Exception {
+        when(annonceService.createAnnonce(annonce)).thenReturn(annonce);
+        mockMvc.perform(
+                        post("/api/annonce")
+                                .content(objectMapper.writeValueAsString(annonce))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title", is("Title 1")))
+                .andExpect(jsonPath("$.type", is(Type.EMPLOI)))
+                .andExpect(jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    public void testDeleteAnnonceById() throws Exception {
+        when(annonceService.deleteAnnonce(annonce.getId())).thenReturn(true);
+        mockMvc.perform(delete("/api/annonce/" + annonce.getId()))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void testUpdateAnnonce() throws Exception {
+        Annonce annonceToUpdate = new Annonce("Title 2", "description 2 ...", 200.0, Type.VEHICULE);
+        Annonce expected = new Annonce(annonce.getId(), "Title 2", "description 2 ...", 200.0, Type.VEHICULE, LocalDate.now());
+
+        when(annonceService.updateAnnonce(annonce.getId(), annonceToUpdate)).thenReturn(expected);
+        mockMvc.perform(
+                        post("/api/annonce/" + annonce.getId())
+                                .content(objectMapper.writeValueAsString(annonce))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title", is("Title 2")))
+                .andExpect(jsonPath("$.type", is(Type.VEHICULE)))
+                .andExpect(jsonPath("$").isNotEmpty());
     }
 }

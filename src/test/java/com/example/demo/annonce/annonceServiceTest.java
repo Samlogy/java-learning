@@ -1,12 +1,19 @@
 package com.example.demo.annonce;
 
+import com.example.demo.exception.NotFoundException;
+import org.checkerframework.checker.units.qual.A;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,6 +25,14 @@ public class annonceServiceTest {
 
     @InjectMocks
     private AnnonceService annonceService;
+
+    private Annonce annonce;
+
+    @BeforeEach
+    public void setup() {
+        UUID id = UUID.randomUUID();
+        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+    }
 
     @Test
     public void testGetAnnonces() {
@@ -59,7 +74,6 @@ public class annonceServiceTest {
 
         List<Annonce> annonceList3 = annonceService.filterAnnonces(null, null, 200.0, null);
         assertEquals(3, annonceList3.size());
-//        assertEquals(150.0, annonceList3.get(0).getPrice());
 
         // priceMin != null
         List<Annonce> expected4 = List.of(a2);
@@ -67,6 +81,62 @@ public class annonceServiceTest {
 
         List<Annonce> annonceList4 = annonceService.filterAnnonces(null, 150.0, null, null);
         assertEquals(1, annonceList4.size());
-//        assertEquals(150.0, annonceList3.get(0).getPrice());
     }
+
+    @Test
+    public void testGetAnnonceById() {
+        when(annonceRepository.findById(annonce.getId())).thenReturn(Optional.of(annonce));
+        Annonce result = annonceService.getAnnonceById(annonce.getId());
+        assertNotEquals(result, null);
+        assertEquals(result.getTitle(), "Title 1");
+        assertEquals(result.getType(), Type.EMPLOI);
+    }
+
+    @Test
+    public void testGetInvalidAnnonceById() {
+        when(annonceRepository.findById(annonce.getId())).thenThrow(new NotFoundException("Annonce not found with ID: " + annonce.getId()));
+        Exception exception = assertThrows(NotFoundException.class, () -> {
+            annonceService.getAnnonceById(annonce.getId());
+        });
+        assertTrue(exception.getMessage().contains("Annonce not found with ID: " + annonce.getId()));
+    }
+
+    @Test
+    public void testCreateAnnonce() {
+        annonceService.createAnnonce(annonce);
+        verify(annonceRepository, times(1)).save(annonce);
+        ArgumentCaptor<Annonce> annonceArgumentCaptor = ArgumentCaptor.forClass(Annonce.class);
+        verify(annonceRepository).save(annonceArgumentCaptor.capture());
+        Annonce annonceCreated = annonceArgumentCaptor.getValue();
+        assertNotNull(annonceCreated.getId());
+        assertEquals("Title 1", annonceCreated.getTitle());
+    }
+
+    @Test
+    public void testDeleteAnnonce() {
+        when(annonceRepository.findById(annonce.getId())).thenReturn(Optional.of(annonce));
+        annonceService.deleteAnnonce(annonce.getId());
+        verify(annonceRepository, times(1)).deleteById(annonce.getId());
+        ArgumentCaptor<UUID> annonceArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
+        verify(annonceRepository).deleteById(annonceArgumentCaptor.capture());
+        UUID annonceIdDeleted = annonceArgumentCaptor.getValue();
+        assertNotNull(annonceIdDeleted);
+        assertEquals(annonce.getId(), annonceIdDeleted);
+    }
+
+    @Test
+    public void testUpdateAnnonce() {
+        Annonce annonceToUpdate = new Annonce("Title 2", "description 2 ...", 200.0, Type.VEHICULE);
+        Annonce expected = new Annonce(annonce.getId(), "Title 2", "description 2 ...", 200.0, Type.VEHICULE, LocalDate.now());
+
+        when(annonceService.updateAnnonce(annonce.getId(), annonceToUpdate)).thenReturn(expected);
+        verify(annonceRepository, times(1)).save(annonceToUpdate);
+        ArgumentCaptor<Annonce> annonceArgumentCaptor = ArgumentCaptor.forClass(Annonce.class);
+        verify(annonceRepository).save(annonceArgumentCaptor.capture());
+        Annonce annonceUpdated = annonceArgumentCaptor.getValue();
+        assertNotNull(annonceUpdated.getId());
+        assertEquals("Title 2", annonceUpdated.getTitle());
+        assertEquals(Type.VEHICULE, annonceUpdated.getType());
+    }
+}
 }
