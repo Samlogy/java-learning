@@ -71,9 +71,10 @@ public class AnnonceService {
         return annonceRepository.save(annonceExist);
     }
 
-    public void deleteAnnonce(UUID id) {
+    public boolean deleteAnnonce(UUID id) {
         Annonce annonce = annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
-        annonceRepository.deleteById(annonce.getId());
+        annonceRepository.deleteById(id);
+        return true;
     }
 }
