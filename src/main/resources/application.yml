@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/meetingPlanner
+    url: jdbc:postgresql://localhost:5432/meetingplanner
     username: postgres
     password: Postgres1618.
     driver-class-name: org.postgresql.Driver
