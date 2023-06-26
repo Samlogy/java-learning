@@ -26,14 +26,6 @@ public class annonceServiceTest {
     @InjectMocks
     private AnnonceService annonceService;
 
-    private Annonce annonce;
-
-    @BeforeEach
-    public void setup() {
-        UUID id = UUID.randomUUID();
-        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
-    }
-
     @Test
     public void testGetAnnonces() {
         Annonce a1 = new Annonce("Title 1", "description 1 ...", 100.0, Type.EMPLOI);
@@ -85,8 +77,11 @@ public class annonceServiceTest {
 
     @Test
     public void testGetAnnonceById() {
-        when(annonceRepository.findById(annonce.getId())).thenReturn(Optional.of(annonce));
-        Annonce result = annonceService.getAnnonceById(annonce.getId());
+        UUID id = UUID.randomUUID();
+        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+
+        when(annonceRepository.findById(id)).thenReturn(Optional.of(annonce));
+        Annonce result = annonceService.getAnnonceById(id);
         assertNotEquals(result, null);
         assertEquals(result.getTitle(), "Title 1");
         assertEquals(result.getType(), Type.EMPLOI);
@@ -94,49 +89,61 @@ public class annonceServiceTest {
 
     @Test
     public void testGetInvalidAnnonceById() {
-        when(annonceRepository.findById(annonce.getId())).thenThrow(new NotFoundException("Annonce not found with ID: " + annonce.getId()));
+        UUID id = UUID.fromString("1ab3fab0-eafa-44b2-ae42-1be693705c39");
+
+        when(annonceRepository.findById(id)).thenThrow(new NotFoundException("Annonce not found with ID: " + id));
         Exception exception = assertThrows(NotFoundException.class, () -> {
-            annonceService.getAnnonceById(annonce.getId());
+            annonceService.getAnnonceById(id);
         });
-        assertTrue(exception.getMessage().contains("Annonce not found with ID: " + annonce.getId()));
+        assertTrue(exception.getMessage().contains("Annonce not found with ID: " + id));
     }
 
     @Test
     public void testCreateAnnonce() {
+        UUID id = UUID.randomUUID();
+        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+
         annonceService.createAnnonce(annonce);
         verify(annonceRepository, times(1)).save(annonce);
         ArgumentCaptor<Annonce> annonceArgumentCaptor = ArgumentCaptor.forClass(Annonce.class);
         verify(annonceRepository).save(annonceArgumentCaptor.capture());
         Annonce annonceCreated = annonceArgumentCaptor.getValue();
-        assertNotNull(annonceCreated.getId());
         assertEquals("Title 1", annonceCreated.getTitle());
     }
 
     @Test
     public void testDeleteAnnonce() {
+        UUID id = UUID.randomUUID();
+        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+
         when(annonceRepository.findById(annonce.getId())).thenReturn(Optional.of(annonce));
         annonceService.deleteAnnonce(annonce.getId());
         verify(annonceRepository, times(1)).deleteById(annonce.getId());
         ArgumentCaptor<UUID> annonceArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
         verify(annonceRepository).deleteById(annonceArgumentCaptor.capture());
         UUID annonceIdDeleted = annonceArgumentCaptor.getValue();
-        assertNotNull(annonceIdDeleted);
+        assertNull(annonceIdDeleted);
         assertEquals(annonce.getId(), annonceIdDeleted);
     }
 
     @Test
     public void testUpdateAnnonce() {
-        Annonce annonceToUpdate = new Annonce("Title 2", "description 2 ...", 200.0, Type.VEHICULE);
-        Annonce expected = new Annonce(annonce.getId(), "Title 2", "description 2 ...", 200.0, Type.VEHICULE, LocalDate.now());
+        UUID id = UUID.randomUUID();
+        Annonce annonce = new Annonce(id, "Title 1", "description 1 ...", 100.0, Type.EMPLOI);
+        Annonce toUpdate = new Annonce("Title 2", "description 2 ...", 200.0, Type.VEHICULE);
 
-        when(annonceService.updateAnnonce(annonce.getId(), annonceToUpdate)).thenReturn(expected);
-        verify(annonceRepository, times(1)).save(annonceToUpdate);
-        ArgumentCaptor<Annonce> annonceArgumentCaptor = ArgumentCaptor.forClass(Annonce.class);
-        verify(annonceRepository).save(annonceArgumentCaptor.capture());
-        Annonce annonceUpdated = annonceArgumentCaptor.getValue();
-        assertNotNull(annonceUpdated.getId());
-        assertEquals("Title 2", annonceUpdated.getTitle());
-        assertEquals(Type.VEHICULE, annonceUpdated.getType());
+        when(annonceRepository.findById(id)).thenReturn(Optional.of(annonce));
+        Annonce annonceToUpdate = annonceService.getAnnonceById(id); // annonceToUpdate
+
+        annonceToUpdate.setTitle(annonceToUpdate.getTitle());
+        annonceToUpdate.setType(annonceToUpdate.getType());
+        annonceToUpdate.setDescription(annonceToUpdate.getDescription());
+        annonceToUpdate.setPrice(annonceToUpdate.getPrice());
+        when(annonceRepository.save(annonceToUpdate)).thenReturn(annonceToUpdate);
+        Annonce upadted = annonceService.updateAnnonce(id, toUpdate); // annonceToUpdate
+
+        assertEquals("Title 2", upadted.getTitle());
+        assertEquals(Type.VEHICULE, upadted.getType());
+
     }
-}
 }

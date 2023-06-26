@@ -72,7 +72,7 @@ public class AnnonceService {
     }
 
     public boolean deleteAnnonce(UUID id) {
-        Annonce annonce = annonceRepository.findById(id)
+       annonceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
         annonceRepository.deleteById(id);
         return true;
