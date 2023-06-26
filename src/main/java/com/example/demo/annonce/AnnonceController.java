@@ -1,13 +1,17 @@
 package com.example.demo.annonce;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,6 +31,8 @@ public class AnnonceController {
 //        this.annonceService = annonceService;
 //    }
 
+
+
     @GetMapping
     public ResponseEntity<List<AnnonceDTO>> getAnnonces() {
         List<Annonce> annonces = annonceService.getAnnonces();
@@ -38,9 +44,6 @@ public class AnnonceController {
     @GetMapping("/{id}")
     public ResponseEntity<Annonce> getAnnonceById(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(annonceService.getAnnonceById(id));
-//        Annonce annonce = annonceService.getAnnonceById(id);
-//        return ResponseEntity.status(HttpStatus.OK).body(annonceMapper.toDTO(annonce));
-//        return ResponseEntity.status(HttpStatus.OK).body(annonceMapper.mapToDto(annonce));
     }
 
     @GetMapping("/filter")
@@ -51,7 +54,26 @@ public class AnnonceController {
         List<Annonce> annonces = annonceService.filterAnnonces(title, priceMin, priceMax, type);
         List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(dto);
-//        return ResponseEntity.status(HttpStatus.OK).body(annonces);
+    }
+
+    @GetMapping("/paging")
+    public ResponseEntity<Map<String, Object>> getAnnoncesByTitle1(
+            @RequestParam(required = false) String title,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "id,desc") String[] sort) {
+
+        Map<String, Object> result = annonceService.getAnnoncesByTitlePagingFilteringSorting(title, page, size, sort);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/sorting")
+    public ResponseEntity<List<Annonce>> getAnnoncesByTitle2(
+            @RequestParam(required = false) String title,
+            @RequestParam(defaultValue = "id,desc") String[] sort) {
+
+        List<Annonce> annonces = annonceService.getAnnoncesByTitleSorting(title, sort);
+        return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 
     @PostMapping

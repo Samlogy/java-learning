@@ -1,5 +1,8 @@
 package com.example.demo.annonce;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +24,7 @@ public interface AnnonceRepository extends JpaRepository<Annonce, UUID>{
                                  @Param("type") Type type,
                                  @Param("priceMin") Double priceMin,
                                  @Param("priceMax") Double priceMax);
+
+    Page<Annonce> findByTitle(String title, Pageable pageable); // pagination
+    List<Annonce> findByTitle(String title, Sort sort); // sort
 }

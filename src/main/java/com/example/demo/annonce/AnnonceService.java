@@ -3,6 +3,11 @@ package com.example.demo.annonce;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +19,12 @@ import java.util.List;
 @Service
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
+
+    private Sort.Direction getSortDirection(String direction) {
+        if (direction.equals("desc")) return Sort.Direction.DESC;
+        return Sort.Direction.ASC;
+    }
+
     @Autowired
     public AnnonceService(AnnonceRepository annonceRepository) {
         this.annonceRepository = annonceRepository;
@@ -38,6 +49,64 @@ public class AnnonceService {
 //                .map(annonceMapper::toDTO)
 //                .collect(Collectors.toList());
     }
+
+    public Map<String, Object> getAnnoncesByTitlePagingFilteringSorting(String title, int page, int size, String[] sort) {
+        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+
+        if (sort[0].contains(",")) {
+            // will sort more than 2 fields --> sortOrder="field, direction"
+            for (String sortOrder : sort) {
+                String[] _sort = sortOrder.split(",");
+                orders.add(new Order(getSortDirection(_sort[1]), _sort[0]));
+            }
+        } else {
+            // sort=[field, direction]
+            orders.add(new Order(getSortDirection(sort[1]), sort[0]));
+        }
+
+
+        List<Annonce> annonces = new ArrayList<Annonce>();
+        Pageable pagingSort = PageRequest.of(page, size, Sort.by(orders));
+
+        Page<Annonce> pageTuts;
+        if (title == null) pageTuts = annonceRepository.findAll(pagingSort);
+        else pageTuts = annonceRepository.findByTitle(title, pagingSort);
+
+        annonces = pageTuts.getContent();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("annonces", annonces);
+        response.put("currentPage", pageTuts.getNumber());
+        response.put("totalItems", pageTuts.getTotalElements());
+        response.put("totalPages", pageTuts.getTotalPages());
+
+        return response;
+    }
+
+    public List<Annonce> getAnnoncesByTitleSorting(String title, String[] sort) {
+        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+
+        if (sort[0].contains(",")) {
+            // will sort more than 2 fields --> sortOrder="field, direction"
+            for (String sortOrder : sort) {
+                String[] _sort = sortOrder.split(",");
+                orders.add(new Order(getSortDirection(_sort[1]), _sort[0]));
+            }
+        } else {
+            // sort=[field, direction]
+            orders.add(new Order(getSortDirection(sort[1]), sort[0]));
+        }
+
+
+        List<Annonce> res;
+        Sort sorting = Sort.by(orders);
+
+        if (title == null) res = annonceRepository.findAll(sorting);
+        else res = annonceRepository.findByTitle(title, sorting);
+
+        return res;
+    }
+
 
     public Annonce createAnnonce(Annonce annonce) {
         if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
