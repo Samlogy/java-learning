@@ -6,8 +6,15 @@ import org.springframework.stereotype.Component;
 
 import java.beans.JavaBean;
 
-@JavaBean
-public abstract class AnnonceMapper {
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+//@JavaBean
+//@Mapper(componentModel = "spring")
+public class AnnonceMapper {
+
+//    Annonce map(AnnonceDTO dto);
+//    AnnonceDTO mapToDto(Annonce annonce);
 
     public AnnonceDTO toDTO(Annonce annonce) {
         AnnonceDTO annonceDTO = new AnnonceDTO();

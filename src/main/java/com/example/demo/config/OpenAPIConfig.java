@@ -1,4 +1,4 @@
-package com.example.demo.swagger;
+package com.example.demo.config;
 
 import java.util.List;
 
