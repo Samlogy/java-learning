@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID roomId;
     private String name;
     private Integer capacity;
     @Enumerated(EnumType.STRING)

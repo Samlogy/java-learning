@@ -1,4 +1,4 @@
-package com.example.MeetingPlanner.meeting;
+package com.example.MeetingPlanner.booking;
 
 public enum MeetingType {
     RS,
