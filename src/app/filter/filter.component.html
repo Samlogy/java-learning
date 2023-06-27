@@ -1,0 +1,95 @@
+<div class="mt-5">
+  <div class="text-center py-4 border-0">
+    <h1 class="display-6 fw-bold">Filter Annonce</h1>
+  </div>
+
+  <div class="row g-3">
+    <div class="mb-3 col-md-3">
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Title"
+        #title
+      />
+    </div>
+
+    <div class="mb-3 col-md-3">
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Description"
+        #description
+      />
+    </div>
+
+    <div class="mb-3 col-md-3">
+      <select class="form-select" aria-label="" #type>
+        <option selected>Type</option>
+        <option value="VEHICULE">Vehicule</option>
+        <option value="EMPLOI">Emploi</option>
+        <option value="IMMOBILLIER">Immobillier</option>
+      </select>
+    </div>
+
+    <div class="mb-3 col-md-3">
+      <input
+        type="number"
+        class="form-control"
+        id="priceMin"
+        placeholder="priceMin"
+        #priceMin
+      />
+    </div>
+
+    <div class="mb-3 col-md-3">
+      <input
+        type="text"
+        class="form-control"
+        id="priceMax"
+        placeholder="priceMax"
+        #priceMax
+      />
+    </div>
+    <div class="flex col-md-3" role="group" aria-label="">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="onSearch(title, description, priceMin, priceMax, type)"
+      >
+        Search
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="onReset(title, description, priceMin, priceMax, type)"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <div class="text-left py-4 border-0">
+    <h4 class="display-10 fw-bold">Result:</h4>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let annonce of annonces">
+        <td>{{ annonce.title }}</td>
+        <td>{{ annonce.description }}</td>
+        <td>{{ annonce.price }}</td>
+        <td>{{ annonce.type }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
