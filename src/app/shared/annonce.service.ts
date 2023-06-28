@@ -24,7 +24,7 @@ export class AnnonceService {
     );
   }
 
-  getAnnonces(): Observable<IAnnonce[]> {
+  getAnnonces(): any {
     return this.http.get<IAnnonce[]>(BASE_URL);
   }
   getAnnonceById(id: string): Observable<IAnnonce> {
