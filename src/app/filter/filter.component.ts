@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AnnonceService } from '../shared/annonce.service';
 
-interface IAnnonce {
-  id: string;
+export interface IAnnonce {
+  id?: string;
   title: string;
   description: string;
-  priceMin: number;
-  priceMax: number;
+  price: number;
   type: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 const DATA = [
@@ -115,29 +114,31 @@ const DATA = [
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css'],
 })
-export class FilterComponent implements OnInit {
-  annonces: any[] = [];
+export class FilterComponent {
+  annonces: IAnnonce[] = [];
 
   constructor(private annonceService: AnnonceService) {}
 
-  ngOnInit(): void {}
+  // ngOnInit(): void {
+  //   this.annonces = this.annonceService.getAnnonces();
+  // }
 
-  onSearch(
+  onFilter(
     title: any,
     description: any,
     priceMin: any,
     priceMax: any,
     type: any
   ) {
-    const observer = this.annonceService.onSearch(
+    const observer = this.annonceService.onFilter(
       title.value,
       description.value,
       priceMin.value,
       priceMax.value,
       type.value
     );
-    // observer.subscribe((res) => (this.annonces = res));
-    // console.log(observer);
+    console.log(observer);
+    observer.subscribe((res: any) => (this.annonces = res));
   }
 
   onReset(

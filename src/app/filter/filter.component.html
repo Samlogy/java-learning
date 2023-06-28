@@ -3,7 +3,7 @@
     <h1 class="display-6 fw-bold">Filter Annonce</h1>
   </div>
 
-  <div class="row g-3">
+  <form class="row g-3">
     <div class="mb-3 col-md-3">
       <input
         type="text"
@@ -56,7 +56,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        (click)="onSearch(title, description, priceMin, priceMax, type)"
+        (click)="onFilter(title, description, priceMin, priceMax, type)"
       >
         Search
       </button>
@@ -68,28 +68,30 @@
         Reset
       </button>
     </div>
-  </div>
+  </form>
 
-  <div class="text-left py-4 border-0">
-    <h4 class="display-10 fw-bold">Result:</h4>
-  </div>
+  <div *ngIf="annonces && annonces.length > 0">
+    <div class="text-left py-4 border-0">
+      <h4 class="display-10 fw-bold">Result:</h4>
+    </div>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Price</th>
-        <th scope="col">Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let annonce of annonces">
-        <td>{{ annonce.title }}</td>
-        <td>{{ annonce.description }}</td>
-        <td>{{ annonce.price }}</td>
-        <td>{{ annonce.type }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Price</th>
+          <th scope="col">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let annonce of annonces">
+          <td>{{ annonce.title }}</td>
+          <td>{{ annonce.description }}</td>
+          <td>{{ annonce.price }}</td>
+          <td>{{ annonce.type }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
