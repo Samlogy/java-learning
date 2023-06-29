@@ -10,12 +10,20 @@ const appRoutes: Routes = [
     component: FilterComponent,
   },
   {
-    path: 'annonce/add',
-    component: AddComponent,
+    path: 'annonce', // children routes / nested routes
+    children: [
+      { path: 'add', component: AddComponent },
+      { path: 'edit/:id', component: AddComponent },
+    ],
   },
-  { path: 'annonce/:id', component: AnnonceDetailsComponent },
-  { path: '', redirectTo: 'annonce/filter', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: 'about', // lazy loading page
+    loadComponent: () =>
+      import('./pages/about/about.component').then((opt) => opt.AboutComponent),
+  },
+  { path: 'annonce/:id', component: AnnonceDetailsComponent }, // route with param id
+  { path: '', redirectTo: 'annonce/filter', pathMatch: 'full' }, // redirect route
+  { path: '**', component: PageNotFoundComponent }, // not found route (not match route)
 ];
 
 export default appRoutes;
