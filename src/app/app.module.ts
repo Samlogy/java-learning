@@ -11,6 +11,7 @@ import appRoutes from './app-routing.module';
 import { TableComponent } from './components/table/table.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     BrowserModule,
     HttpClientModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],
