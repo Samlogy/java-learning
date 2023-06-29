@@ -7,7 +7,7 @@ import { AnnonceDetailsComponent } from './annonce-details/annonce-details.compo
 import { AppComponent } from './app.component';
 import { FilterComponent } from './filter/filter.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import appRoutes from './routerConfig';
+import appRoutes from './app-routing';
 import { TableComponent } from './table/table.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaginationComponent } from './pagination/pagination.component';

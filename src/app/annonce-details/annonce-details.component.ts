@@ -7,14 +7,15 @@ import { IAnnonce } from '../filter/filter.component';
 @Component({
   selector: 'app-annonce-details',
   templateUrl: './annonce-details.component.html',
-  styleUrls: ['./annonce-details.component.css'],
 })
 export class AnnonceDetailsComponent {
   annonce: IAnnonce = {
+    id: '',
     title: '',
     description: '',
     price: 0,
     type: '',
+    createdAt: '',
   };
 
   constructor(
@@ -36,6 +37,7 @@ export class AnnonceDetailsComponent {
     this.annonceService
       .getAnnonceById(id)
       .subscribe((res) => (this.annonce = res));
-    this.router.navigate(['annonce/filter', { id: id, foo: 'foo' }]); // redirect + provide some extra data
+
+    // this.router.navigate(['annonce/filter', { id: id, foo: 'foo' }]); // redirect + provide some extra data
   }
 }
