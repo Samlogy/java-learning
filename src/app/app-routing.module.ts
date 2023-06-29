@@ -7,15 +7,13 @@ import { AuthGuard } from './guard/auth.service';
 
 const appRoutes: Routes = [
   {
-    path: 'annonce/filter',
-    component: FilterComponent,
-  },
-  {
     path: 'annonce', // children routes / nested routes
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard], // route guard
     children: [
+      { path: 'filter', component: FilterComponent },
       { path: 'add', component: AddComponent },
-      { path: 'edit/:id', component: AddComponent },
+      { path: 'edit/:id', component: AddComponent }, // route with param id
+      { path: ':id', component: AnnonceDetailsComponent }, // route with param id
     ],
   },
   {
@@ -23,7 +21,6 @@ const appRoutes: Routes = [
     loadComponent: () =>
       import('./pages/about/about.component').then((opt) => opt.AboutComponent),
   },
-  { path: 'annonce/:id', component: AnnonceDetailsComponent }, // route with param id
   { path: '', redirectTo: 'annonce/filter', pathMatch: 'full' }, // redirect route
   { path: '**', component: PageNotFoundComponent }, // not found route (not match route)
 ];
