@@ -3,7 +3,7 @@ import { AddComponent } from './pages/add/add.component';
 import { FilterComponent } from './pages/filter/filter.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AnnonceDetailsComponent } from './pages/annonce-details/annonce-details.component';
-import { AuthGuard } from './guard/auth.service';
+import { AuthGuard } from './services/guard/auth.service';
 
 const appRoutes: Routes = [
   {
