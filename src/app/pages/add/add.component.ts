@@ -8,13 +8,13 @@ import { IAnnonce } from 'src/app/model/annonce';
   templateUrl: './add.component.html',
 })
 export class AddComponent implements OnInit {
-  pageTitle: string = 'ADD';
+  pageTitle: string = '';
   reactiveForm!: FormGroup;
   annonce: IAnnonce;
-  annonceService: any;
 
-  types = ['VEHICULE', 'EMPLOI', 'IMMOBILLIER'];
-  // isSubmitted: false | undefined;
+  types: string[] = ['VEHICULE', 'EMPLOI', 'IMMOBILLIER'];
+  annonceService: any;
+  isSubmitted: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.annonce = {
@@ -26,6 +26,7 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // form validation rules
     this.reactiveForm = new FormGroup({
       title: new FormControl(this.annonce.title, [Validators.required]),
       description: new FormControl(this.annonce.description, [
@@ -61,30 +62,23 @@ export class AddComponent implements OnInit {
     });
   }
 
-  public validate(): void {
+  // validation functions
+  public validate(): boolean {
     if (this.reactiveForm.invalid) {
       for (const control of Object.keys(this.reactiveForm.controls)) {
         this.reactiveForm.controls[control].markAsTouched();
       }
-      return;
+      return false;
     }
 
     this.annonce = this.reactiveForm.value;
+    return true;
   }
 
   createAnnonce(): void {
-    this.validate(); // form validation
+    if (!this.validate()) return; // form validation
 
-    const newAnnonce = {
-      title: this.annonce.title,
-      description: this.annonce.description,
-      type: this.annonce.type,
-      price: this.annonce.price,
-    };
-
-    console.log(newAnnonce);
-
-    this.annonceService.createAnnonce(newAnnonce).subscribe({
+    this.annonceService.createAnnonce(this.annonce).subscribe({
       next: (res: any) => {
         console.log(res);
         // this.submitted = true;
