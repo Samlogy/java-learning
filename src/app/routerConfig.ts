@@ -14,7 +14,6 @@ const appRoutes: Routes = [
     component: AddComponent,
   },
   { path: 'annonce/:id', component: AnnonceDetailsComponent },
-
   { path: '', redirectTo: 'annonce/filter', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
