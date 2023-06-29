@@ -73,7 +73,7 @@ const DATA = [
     description: 'description 0 ...',
     price: 150.0,
     type: 'VEHICULE',
-    createdAt: null,
+    createdAt: '2023-06-26',
   },
   {
     id: 'd2fa7d81-4c7b-4915-8d9e-eb8145a6c828',
@@ -89,7 +89,7 @@ const DATA = [
     description: 'description 0 ...',
     price: 150.0,
     type: 'VEHICULE',
-    createdAt: null,
+    createdAt: '2023-06-26',
   },
   {
     id: 'd0d5566d-e062-4df0-b575-1dcbbd69cc45',
@@ -105,7 +105,7 @@ const DATA = [
     description: 'description 0 ...',
     price: 150.0,
     type: 'VEHICULE',
-    createdAt: null,
+    createdAt: '2023-06-26',
   },
 ];
 
@@ -119,9 +119,9 @@ export class FilterComponent {
 
   constructor(private annonceService: AnnonceService) {}
 
-  // ngOnInit(): void {
-  //   this.annonces = this.annonceService.getAnnonces();
-  // }
+  ngOnInit(): void {
+    this.annonces = DATA; //this.annonceService.getAnnonces();
+  }
 
   onFilter(
     title: any,
