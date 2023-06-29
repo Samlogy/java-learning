@@ -3,6 +3,7 @@ import { AddComponent } from './pages/add/add.component';
 import { FilterComponent } from './pages/filter/filter.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AnnonceDetailsComponent } from './pages/annonce-details/annonce-details.component';
+import { AuthGuard } from './guard/auth.service';
 
 const appRoutes: Routes = [
   {
@@ -11,6 +12,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'annonce', // children routes / nested routes
+    canActivate: [AuthGuard],
     children: [
       { path: 'add', component: AddComponent },
       { path: 'edit/:id', component: AddComponent },
