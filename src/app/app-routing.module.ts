@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AddComponent } from './add/add.component';
-import { FilterComponent } from './filter/filter.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AnnonceDetailsComponent } from './annonce-details/annonce-details.component';
+import { AddComponent } from './pages/add/add.component';
+import { FilterComponent } from './pages/filter/filter.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { AnnonceDetailsComponent } from './pages/annonce-details/annonce-details.component';
 
 const appRoutes: Routes = [
   {

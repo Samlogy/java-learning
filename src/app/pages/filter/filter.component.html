@@ -76,6 +76,9 @@
     </div>
 
     <app-table [annonces]="annonces"></app-table>
-    <app-pagination></app-pagination>
+    <app-pagination
+      [totalPages]="totalPages"
+      [currentPage]="currentPage"
+    ></app-pagination>
   </div>
 </div>

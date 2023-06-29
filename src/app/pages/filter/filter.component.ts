@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AnnonceService } from '../shared/annonce.service';
-
-export interface IAnnonce {
-  id?: string;
-  title: string;
-  description: string;
-  price: number;
-  type: string;
-  createdAt?: string;
-}
+import { AnnonceService } from '../../services/shared/annonce.service';
+import { IAnnonce } from '../../model/annonce';
 
 const DATA = [
   {
@@ -112,10 +104,11 @@ const DATA = [
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent {
   annonces: IAnnonce[] = [];
+  totalPages: number = 2;
+  currentPage: number = 1;
 
   constructor(private annonceService: AnnonceService) {}
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IAnnonce } from '../filter/filter.component';
+import { IAnnonce } from '../../model/annonce';
 
 @Component({
   selector: 'app-table',

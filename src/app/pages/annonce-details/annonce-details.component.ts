@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AnnonceService } from '../shared/annonce.service';
+import { AnnonceService } from '../../services/shared/annonce.service';
 import { Observable, switchMap } from 'rxjs';
-import { IAnnonce } from '../filter/filter.component';
+import { IAnnonce } from '../../model/annonce';
 
 @Component({
   selector: 'app-annonce-details',

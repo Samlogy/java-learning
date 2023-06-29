@@ -1,0 +1,11 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item page-link" disabled="currentPage==1">Previous</li>
+    <li class="page-item page-link" *ngFor="let page of pages">
+      {{ page }}
+    </li>
+    <li class="page-item page-link" disabled="totalPages == currentPage">
+      Next
+    </li>
+  </ul>
+</nav>

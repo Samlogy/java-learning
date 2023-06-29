@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IAnnonce } from '../filter/filter.component';
+import { IAnnonce } from '../../model/annonce';
 import { Observable } from 'rxjs';
 
 const BASE_URL = 'http://localhost:8080/api/annonce';
