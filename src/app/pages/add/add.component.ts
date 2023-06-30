@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IAnnonce } from 'src/app/model/annonce';
+import { IAnnonce } from '../../model/annonce';
+import { AnnonceService } from '../../services/shared/annonce.service';
 
 @Component({
   selector: 'app-add',
@@ -13,10 +14,13 @@ export class AddComponent implements OnInit {
   annonce: IAnnonce;
 
   types: string[] = ['VEHICULE', 'EMPLOI', 'IMMOBILLIER'];
-  annonceService: any;
   isSubmitted: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private annonceService: AnnonceService
+  ) {
     this.annonce = {
       title: '',
       description: '',
