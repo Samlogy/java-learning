@@ -113,7 +113,7 @@ export class FilterComponent {
   constructor(private annonceService: AnnonceService) {}
 
   ngOnInit(): void {
-    this.annonces = DATA; //this.annonceService.getAnnonces();
+    this.annonces = this.annonceService.getAnnonces();
   }
 
   onFilter(

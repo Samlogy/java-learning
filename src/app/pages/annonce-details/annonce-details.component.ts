@@ -40,4 +40,8 @@ export class AnnonceDetailsComponent {
 
     // this.router.navigate(['annonce/filter', { id: id, foo: 'foo' }]); // redirect + provide some extra data
   }
+
+  goBack() {
+    console.log(this.router.navigate(['annonce/filter']));
+  }
 }
