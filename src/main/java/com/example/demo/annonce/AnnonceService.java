@@ -1,6 +1,5 @@
 package com.example.demo.annonce;
 
-import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -108,13 +108,15 @@ public class AnnonceService {
     }
 
     public Annonce createAnnonce(Annonce annonce) {
-        if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
-            throw new BadRequestException("Invalid Annonce Data !");
-        }
-        else {
-            annonce.setCreatedAt(LocalDate.now());
-            return annonceRepository.save(annonce);
-        }
+//        if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
+//            throw new MethodArgumentNotValidException("Invalid Annonce Data !");
+//        }
+//        else {
+//            annonce.setCreatedAt(LocalDate.now());
+//            return annonceRepository.save(annonce);
+//        }
+        annonce.setCreatedAt(LocalDate.now());
+        return annonceRepository.save(annonce);
     }
 
     public Annonce updateAnnonce(UUID id, Annonce annonce) {
