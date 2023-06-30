@@ -31,7 +31,7 @@ export class AnnonceService {
     return this.http.get<IAnnonce>(BASE_URL + `/${id}`);
   }
   createAnnonce(annonce: IAnnonce): Observable<IAnnonce> {
-    return this.http.put<IAnnonce>(BASE_URL, annonce);
+    return this.http.post<IAnnonce>(BASE_URL, annonce);
   }
   updateAnnonceById(id: string, annonce: IAnnonce) {
     return this.http.put<IAnnonce>(BASE_URL + `${id}`, annonce);
