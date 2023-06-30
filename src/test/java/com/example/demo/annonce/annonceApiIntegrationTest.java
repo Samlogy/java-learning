@@ -111,7 +111,7 @@ public class annonceApiIntegrationTest {
     }
 
     @Test
-    @Sql(statements = "DELETE FROM orders WHERE id='8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa'", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(statements = "DELETE FROM annonce WHERE id='8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa'", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testCreateAnnonce() throws JsonProcessingException {
         UUID id = UUID.fromString("8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa");
         Annonce annonce = new Annonce(id, "Title 0", "description 0 ...", 150.0, Type.VEHICULE);
@@ -121,19 +121,19 @@ public class annonceApiIntegrationTest {
         assertEquals(response.getStatusCodeValue(), 201);
         Annonce result = Objects.requireNonNull(response.getBody());
         assertEquals(result.getTitle(), "Title 0");
-        assertEquals(result.getTitle(), annonceRepository.save(annonce).getType());
+        assertEquals(result.getType(), annonceRepository.save(annonce).getType());
     }
 
     @Test
-    @Sql(statements = "INSERT INTO orders(id, buyer, price, qty) VALUES (6, 'alex', 75.0, 3)", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(statements = "DELETE FROM orders WHERE id='8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa'", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(statements = "INSERT INTO annonce (id, title, description, price, type)" + "VALUES ('8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa', 'Title 1', 'Sample Description', 100.0, 'EMPLOI');", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(statements = "DELETE FROM annonce WHERE id='8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa'", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testDeleteAnnonce() {
         UUID id = UUID.fromString("8b769ca9-89c4-4ff9-9ed4-9c9a6054faaa");
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/"+id), HttpMethod.DELETE, null, String.class);
         String annocneRes = response.getBody();
-        assertEquals(response.getStatusCodeValue(), 205);
-        assertNotNull(annocneRes);
+        assertEquals(response.getStatusCodeValue(), 204);
+        assertEquals(annocneRes, null);
     }
 
     private String createURLWithPort(String path) {
