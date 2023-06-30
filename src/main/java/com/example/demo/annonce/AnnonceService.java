@@ -3,13 +3,13 @@ package com.example.demo.annonce;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -19,16 +19,16 @@ import java.util.List;
 @Service
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
+    @Autowired
+    public AnnonceService(AnnonceRepository annonceRepository) {
+        this.annonceRepository = annonceRepository;
+    }
 
     private Sort.Direction getSortDirection(String direction) {
         if (direction.equals("desc")) return Sort.Direction.DESC;
         return Sort.Direction.ASC;
     }
 
-    @Autowired
-    public AnnonceService(AnnonceRepository annonceRepository) {
-        this.annonceRepository = annonceRepository;
-    }
     public List<Annonce> getAnnonces() {
         return annonceRepository.findAll();
     }
@@ -107,7 +107,6 @@ public class AnnonceService {
         return res;
     }
 
-
     public Annonce createAnnonce(Annonce annonce) {
         if (annonce.getTitle() == null || annonce.getType() == null || annonce.getDescription() == null) {
             throw new BadRequestException("Invalid Annonce Data !");
@@ -136,6 +135,7 @@ public class AnnonceService {
 
         if (!annonce.getTitle().isEmpty()) annonceExist.setTitle(annonce.getTitle());
         if (!annonce.getDescription().isEmpty()) annonceExist.setDescription(annonce.getDescription());
+        if (annonce.getType() != null) annonceExist.setType(annonce.getType());
 
         return annonceRepository.save(annonceExist);
     }

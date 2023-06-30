@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,6 @@ public class AnnonceController {
     @GetMapping
     public ResponseEntity<List<AnnonceDTO>> getAnnonces() {
         List<Annonce> annonces = annonceService.getAnnonces();
-//        return ResponseEntity.status(HttpStatus.OK).body(annonces);
         List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
@@ -49,6 +49,26 @@ public class AnnonceController {
         List<Annonce> annonces = annonceService.filterAnnonces(title, priceMin, priceMax, type);
         List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @GetMapping("/paging")
+    public ResponseEntity<Map<String, Object>> getAnnoncesByTitle1(
+            @RequestParam(required = false) String title,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "id,desc") String[] sort) {
+
+        Map<String, Object> result = annonceService.getAnnoncesByTitlePagingFilteringSorting(title, page, size, sort);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/sorting")
+    public ResponseEntity<List<Annonce>> getAnnoncesByTitle2(
+            @RequestParam(required = false) String title,
+            @RequestParam(defaultValue = "id,desc") String[] sort) {
+
+        List<Annonce> annonces = annonceService.getAnnoncesByTitleSorting(title, sort);
+        return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 
     @PostMapping

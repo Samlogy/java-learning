@@ -10,11 +10,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 //@JavaBean
-//@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring")
+@Component
 public class AnnonceMapper {
-
-//    Annonce map(AnnonceDTO dto);
-//    AnnonceDTO mapToDto(Annonce annonce);
 
     public AnnonceDTO toDTO(Annonce annonce) {
         AnnonceDTO annonceDTO = new AnnonceDTO();
