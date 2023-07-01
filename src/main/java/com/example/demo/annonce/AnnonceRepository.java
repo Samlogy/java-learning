@@ -20,11 +20,13 @@ public interface AnnonceRepository extends JpaRepository<Annonce, UUID>{
             "AND (:type IS NULL OR a.type = :type) " +
             "AND (:priceMin IS NULL OR a.price >= :priceMin) " +
             "AND (:priceMax IS NULL OR a.price <= :priceMax)")
-    List<Annonce> filterAnnonces(@Param("title") String title,
-                                 @Param("type") Type type,
-                                 @Param("priceMin") Double priceMin,
-                                 @Param("priceMax") Double priceMax);
+    Page<Annonce> filterAnnonces(String title,
+                                 Type type,
+                                 Double priceMin,
+                                 Double priceMax,
+                                 Pageable pageable);
 
     Page<Annonce> findByTitle(String title, Pageable pageable); // pagination
+
     List<Annonce> findByTitle(String title, Sort sort); // sort
 }

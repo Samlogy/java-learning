@@ -30,10 +30,10 @@ public class AnnonceController {
 //    }
 
     @GetMapping
-    public ResponseEntity<List<AnnonceDTO>> getAnnonces() {
-        List<Annonce> annonces = annonceService.getAnnonces();
-        List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    public ResponseEntity<Map<String, Object>> getAnnonces(@RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "3") int size) {
+        Map<String, Object> annoncePages = annonceService.getAnnonces(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(annoncePages);
     }
 
     @GetMapping("/{id}")
@@ -42,32 +42,31 @@ public class AnnonceController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<AnnonceDTO>> filterAnnonces(@RequestParam(name = "title", required = false) String title,
+    public ResponseEntity<Map<String, Object>> filterAnnonces(@RequestParam(name = "title", required = false) String title,
                                                         @RequestParam(name = "priceMin", required = false) Double priceMin,
                                                         @RequestParam(name = "priceMax", required = false) Double priceMax,
-                                                        @RequestParam(name = "type", required = false) Type type) {
-        List<Annonce> annonces = annonceService.filterAnnonces(title, priceMin, priceMax, type);
-        List<AnnonceDTO> dto = annonces.stream().map(annonceMapper::toDTO).collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
+                                                        @RequestParam(name = "type", required = false) Type type,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "3") int size) {
+        Map<String, Object> annoncePages = annonceService.filterAnnonces(title, priceMin, priceMax, type, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(annoncePages);
     }
 
-    @GetMapping("/paging")
-    public ResponseEntity<Map<String, Object>> getAnnoncesByTitle1(
-            @RequestParam(required = false) String title,
+    @GetMapping("/pagingSorting")
+    public ResponseEntity<Map<String, Object>> getAnnoncesPagingSorting(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "id,desc") String[] sort) {
 
-        Map<String, Object> result = annonceService.getAnnoncesByTitlePagingFilteringSorting(title, page, size, sort);
+        Map<String, Object> result = annonceService.getAnnoncesPagingSorting(page, size, sort);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/sorting")
-    public ResponseEntity<List<Annonce>> getAnnoncesByTitle2(
-            @RequestParam(required = false) String title,
+    public ResponseEntity<List<Annonce>> getAnnoncesSorting(
             @RequestParam(defaultValue = "id,desc") String[] sort) {
 
-        List<Annonce> annonces = annonceService.getAnnoncesByTitleSorting(title, sort);
+        List<Annonce> annonces = annonceService.getAnnoncesSorting(sort);
         return ResponseEntity.status(HttpStatus.OK).body(annonces);
     }
 

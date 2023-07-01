@@ -29,8 +29,17 @@ public class AnnonceService {
         return Sort.Direction.ASC;
     }
 
-    public List<Annonce> getAnnonces() {
-        return annonceRepository.findAll();
+    public Map<String, Object> getAnnonces(int page, int size) {
+        Map<String, Object> response = new HashMap<>();
+
+        Pageable paging = PageRequest.of(page, size);
+        Page<Annonce> pageAnnonces = annonceRepository.findAll(paging);
+
+        response.put("annonces", pageAnnonces.getContent());
+        response.put("currentPage", pageAnnonces.getNumber());
+        response.put("totalItems", pageAnnonces.getTotalElements());
+        response.put("totalPages", pageAnnonces.getTotalPages());
+        return response;
     }
 
     public Annonce getAnnonceById(UUID id) {
@@ -38,19 +47,23 @@ public class AnnonceService {
                 .orElseThrow(() -> new NotFoundException("Annonce not found with ID: " + id));
     }
 
-    public List<Annonce> filterAnnonces(String title, Double priceMin, Double priceMax, Type type) {
+    public Map<String, Object> filterAnnonces(String title, Double priceMin, Double priceMax, Type type, int page, int size) {
         // Solution 1: create fillter(repo) + custom query
-        return annonceRepository.filterAnnonces(title, type, priceMin, priceMax);
+//        return annonceRepository.filterAnnonces(title, type, priceMin, priceMax, page, size);
 
-        // Solution 2:
-//        Specification<Annonce> spec = annonceSpecification.filterByParams(title, priceMin, priceMax, type);
-//        List<Annonce> annonces = annonceRepository.findAll(spec);
-//        return annonces.stream()
-//                .map(annonceMapper::toDTO)
-//                .collect(Collectors.toList());
+        Map<String, Object> response = new HashMap<>();
+
+        Pageable paging = PageRequest.of(page, size);
+        Page<Annonce> pageAnnonces = annonceRepository.filterAnnonces(title, type, priceMin, priceMax, paging);
+
+        response.put("annonces", pageAnnonces.getContent());
+        response.put("currentPage", pageAnnonces.getNumber());
+        response.put("totalItems", pageAnnonces.getTotalElements());
+        response.put("totalPages", pageAnnonces.getTotalPages());
+        return response;
     }
 
-    public Map<String, Object> getAnnoncesByTitlePagingFilteringSorting(String title, int page, int size, String[] sort) {
+    public Map<String, Object> getAnnoncesPagingSorting(int page, int size, String[] sort) {
         List<Sort.Order> orders = new ArrayList<Sort.Order>();
 
         if (sort[0].contains(",")) {
@@ -65,25 +78,19 @@ public class AnnonceService {
         }
 
 
-        List<Annonce> annonces = new ArrayList<Annonce>();
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(orders));
-
-        Page<Annonce> pageTuts;
-        if (title == null) pageTuts = annonceRepository.findAll(pagingSort);
-        else pageTuts = annonceRepository.findByTitle(title, pagingSort);
-
-        annonces = pageTuts.getContent();
-
+        Page<Annonce> pageAnnonces = annonceRepository.findAll(pagingSort);
         Map<String, Object> response = new HashMap<>();
-        response.put("annonces", annonces);
-        response.put("currentPage", pageTuts.getNumber());
-        response.put("totalItems", pageTuts.getTotalElements());
-        response.put("totalPages", pageTuts.getTotalPages());
+
+        response.put("annonces", pageAnnonces.getContent());
+        response.put("currentPage", pageAnnonces.getNumber());
+        response.put("totalItems", pageAnnonces.getTotalElements());
+        response.put("totalPages", pageAnnonces.getTotalPages());
 
         return response;
     }
 
-    public List<Annonce> getAnnoncesByTitleSorting(String title, String[] sort) {
+    public List<Annonce> getAnnoncesSorting(String[] sort) {
         List<Sort.Order> orders = new ArrayList<Sort.Order>();
 
         if (sort[0].contains(",")) {
@@ -96,15 +103,8 @@ public class AnnonceService {
             // sort=[field, direction]
             orders.add(new Order(getSortDirection(sort[1]), sort[0]));
         }
-
-
-        List<Annonce> res;
         Sort sorting = Sort.by(orders);
-
-        if (title == null) res = annonceRepository.findAll(sorting);
-        else res = annonceRepository.findByTitle(title, sorting);
-
-        return res;
+        return annonceRepository.findAll(sorting);
     }
 
     public Annonce createAnnonce(Annonce annonce) {
