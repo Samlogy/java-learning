@@ -65,6 +65,7 @@ public class AnnonceService {
 
     public Map<String, Object> getAnnoncesPagingSorting(int page, int size, String[] sort) {
         List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        Map<String, Object> response = new HashMap<>();
 
         if (sort[0].contains(",")) {
             // will sort more than 2 fields --> sortOrder="field, direction"
@@ -77,10 +78,8 @@ public class AnnonceService {
             orders.add(new Order(getSortDirection(sort[1]), sort[0]));
         }
 
-
         Pageable pagingSort = PageRequest.of(page, size, Sort.by(orders));
         Page<Annonce> pageAnnonces = annonceRepository.findAll(pagingSort);
-        Map<String, Object> response = new HashMap<>();
 
         response.put("annonces", pageAnnonces.getContent());
         response.put("currentPage", pageAnnonces.getNumber());
@@ -88,23 +87,6 @@ public class AnnonceService {
         response.put("totalPages", pageAnnonces.getTotalPages());
 
         return response;
-    }
-
-    public List<Annonce> getAnnoncesSorting(String[] sort) {
-        List<Sort.Order> orders = new ArrayList<Sort.Order>();
-
-        if (sort[0].contains(",")) {
-            // will sort more than 2 fields --> sortOrder="field, direction"
-            for (String sortOrder : sort) {
-                String[] _sort = sortOrder.split(",");
-                orders.add(new Order(getSortDirection(_sort[1]), _sort[0]));
-            }
-        } else {
-            // sort=[field, direction]
-            orders.add(new Order(getSortDirection(sort[1]), sort[0]));
-        }
-        Sort sorting = Sort.by(orders);
-        return annonceRepository.findAll(sorting);
     }
 
     public Annonce createAnnonce(Annonce annonce) {

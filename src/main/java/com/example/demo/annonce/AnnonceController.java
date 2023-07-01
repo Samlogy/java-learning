@@ -62,13 +62,6 @@ public class AnnonceController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/sorting")
-    public ResponseEntity<List<Annonce>> getAnnoncesSorting(
-            @RequestParam(defaultValue = "id,desc") String[] sort) {
-
-        List<Annonce> annonces = annonceService.getAnnoncesSorting(sort);
-        return ResponseEntity.status(HttpStatus.OK).body(annonces);
-    }
 
     @PostMapping
     public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody AnnonceDTO dto) {
