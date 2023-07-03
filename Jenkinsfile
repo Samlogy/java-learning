@@ -5,9 +5,8 @@ node("ci-node") {
   }
 
   stage("Quality Analyses"){
-
     sh "/opt/sonar-scanner/bin/sonar-scanner \\\n" +
-      "  -Dsonar.projectKey=staff-manager-ui \\\n" +
+      "  -Dsonar.projectKey=angular \\\n" +
       "  -Dsonar.sources=./src \\\n" +
       "  -Dsonar.host.url=http://ci.check-consulting.net:11001 \\\n" +
       "  -Dsonar.token=sqp_a818bc464ceb4985bea7af89114471cde4b9842b"
@@ -19,18 +18,17 @@ node("ci-node") {
   }
 
   stage("build image") {
-    sh "sudo docker build -t staff-manager-ui ."
+    sh "sudo docker build -t angular ."
   }
 
   stage("push docker image") {
-
     withCredentials([usernamePassword(credentialsId: 'mchekini', usernameVariable: 'username',
       passwordVariable: 'password')]) {
       sh "sudo docker login -u mchekini -p $password"
-      sh "sudo docker tag staff-manager-ui mchekini/staff-manager-ui:1.0"
-      sh "sudo docker push mchekini/staff-manager-ui:1.0"
-      sh "sudo docker rmi mchekini/staff-manager-ui:1.0"
-      sh "sudo docker rmi staff-manager-ui"
+      sh "sudo docker tag angular mchekini/angular:1.0"
+      sh "sudo docker push mchekini/angular:1.0"
+      sh "sudo docker rmi mchekini/angular:1.0"
+      sh "sudo docker rmi angular"
       stash includes: 'docker-compose.yml', name: 'utils'
     }
   }
