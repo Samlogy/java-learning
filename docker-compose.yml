@@ -2,7 +2,7 @@ version: "2"
 services:
   angular-app:
     container_name: angular-app
-    image: angular-app:1.0
+    image: senanisammy@gmail.com/angular-app:1.0
     ports:
       - "5001:5001"
 
