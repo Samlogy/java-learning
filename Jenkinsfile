@@ -26,7 +26,7 @@ node("ci-node") {
   stage("push docker image") {
     withCredentials([usernamePassword(credentialsId: 's-docker-hub', usernameVariable: 'username',
       passwordVariable: 'password')]) {
-      sh "sudo docker login -u senanisammy@gmail.com -p $password"
+      sh "sudo docker login -u senanisammy@gmail.com -p ${password}"
       sh "sudo docker tag angular-app senanisammy@gmail.com/angular-app:1.0"
       sh "sudo docker push senanisammy@gmail.com/angular-app:1.0"
       sh "sudo docker rmi senanisammy@gmail.com/angular-app:1.0"
