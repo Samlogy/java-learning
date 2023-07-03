@@ -2,9 +2,9 @@ version: "2"
 services:
   angular-app:
     container_name: angular-app
-    image: senanisammy/angular-app:1.0
+    image: sammmmmm/angular-app:1.0
     ports:
-      - "5001:5001"
+      - "5001:80"
 
 networks:
   default:
