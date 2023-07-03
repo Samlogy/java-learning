@@ -24,12 +24,12 @@ node("ci-node") {
   }
 
   stage("push docker image") {
-    withCredentials([usernamePassword(credentialsId: 'mchekini', usernameVariable: 'username',
+    withCredentials([usernamePassword(credentialsId: 's-docker-hub', usernameVariable: 'username',
       passwordVariable: 'password')]) {
-      sh "sudo docker login -u mchekini -p $password"
-      sh "sudo docker tag angular mchekini/angular:1.0"
-      sh "sudo docker push mchekini/angular:1.0"
-      sh "sudo docker rmi mchekini/angular:1.0"
+      sh "sudo docker login -u senanisammy@gmail.com -p $password"
+      sh "sudo docker tag angular senanisammy@gmail.com/angular:1.0"
+      sh "sudo docker push senanisammy@gmail.com/angular:1.0"
+      sh "sudo docker rmi senanisammy@gmail.com/angular:1.0"
       sh "sudo docker rmi angular"
       stash includes: 'docker-compose.yml', name: 'utils'
     }
