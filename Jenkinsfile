@@ -6,11 +6,13 @@ node("ci-node") {
 
   stage("Quality Analyses"){
     sh "/opt/sonar-scanner/bin/sonar-scanner \\\n" +
-      "  -Dsonar.projectKey=angular \\\n" +
+      "  -Dsonar.projectKey=angular-s \\\n" +
       "  -Dsonar.sources=./src \\\n" +
+      "  -Dsonar.projectName='angular-s \\\n" +
       "  -Dsonar.host.url=http://ci.check-consulting.net:11001 \\\n" +
       "  -Dsonar.token=sqp_a818bc464ceb4985bea7af89114471cde4b9842b"
   }
+
 
   stage("build") {
     sh "npm install"
