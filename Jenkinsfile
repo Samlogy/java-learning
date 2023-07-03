@@ -1,7 +1,7 @@
 node("ci-node") {
 
     stage("checkout") {
-        checkout scmGit(branches: [[name: '*/spring-crud-demo']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Samlogy/project-learning']])
+        checkout scmGit(branches: [[name: '*/sping-crud-demo']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Samlogy/project-learning']])
     }
 
     stage("Quality Analyses"){
