@@ -4,7 +4,7 @@ services:
     container_name: angular
     image: angular:1.0
     ports:
-      - "82:80"
+      - "82:82"
 
 networks:
   default:
