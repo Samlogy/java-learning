@@ -1,0 +1,12 @@
+version: "2"
+services:
+  angular:
+    container_name: angular
+    image: angular:1.0
+    ports:
+      - "80:80"
+
+networks:
+  default:
+    external:
+      name: angular-net
