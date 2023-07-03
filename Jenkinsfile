@@ -23,17 +23,29 @@ node("ci-node") {
     sh "sudo docker build -t angular-app ."
   }
 
+  // stage("push docker image") {
+  //   withCredentials([usernamePassword(credentialsId: 's-docker-hub', usernameVariable: 'username',
+  //     passwordVariable: 'password')]) {
+  //     sh "sudo docker login -u senanisammy@gmail.com -p $password"
+  //     sh "sudo docker tag angular-app senanisammy@gmail.com/angular-app:1.0"
+  //     sh "sudo docker push senanisammy@gmail.com/angular-app:1.0"
+  //     sh "sudo docker rmi senanisammy@gmail.com/angular-app:1.0"
+  //     sh "sudo docker rmi angular-app"
+  //     stash includes: 'docker-compose.yml', name: 'utils'
+  //   }
+  // }
   stage("push docker image") {
     withCredentials([usernamePassword(credentialsId: 's-docker-hub', usernameVariable: 'username',
       passwordVariable: 'password')]) {
-      sh "sudo docker login -u ${username} -p ${password}"
-      sh "sudo docker tag angular-app senanisammy@gmail.com/angular-app:1.0"
-      sh "sudo docker push senanisammy@gmail.com/angular-app:1.0"
-      sh "sudo docker rmi senanisammy@gmail.com/angular-app:1.0"
+      sh "sudo docker login -u $username -p $password"
+      sh "sudo docker tag angular-app senanisammy/angular-app:1.0"
+      sh "sudo docker push senanisammy/angular-app:1.0"
+      sh "sudo docker rmi senanisammy/angular-app:1.0"
       sh "sudo docker rmi angular-app"
       stash includes: 'docker-compose.yml', name: 'utils'
     }
-  }
+}
+
 
   node("apps-integration"){
     stage("deploy"){
