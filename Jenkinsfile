@@ -26,8 +26,8 @@ node("ci-node") {
                 passwordVariable: 'password')]) {
             sh "sudo docker login -u $username -p $password"
             sh "sudo docker tag api sammmmmm/api-app:1.0"
-            sh "sudo docker push ammmmmm/api-app:1.0"
-            sh "sudo docker rmi ammmmmm/api-app:1.0"
+            sh "sudo docker push sammmmmm/api-app:1.0"
+            sh "sudo docker rmi sammmmmm/api-app:1.0"
             sh "sudo docker rmi api-app"
             stash includes: 'docker-compose.yml', name: 'utils'
         }
