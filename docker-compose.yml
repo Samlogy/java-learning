@@ -1,8 +1,8 @@
 version: "2"
 services:
-  angular-app:
-    container_name: angular-app
-    image: sammmmmm/angular-app:1.0
+  angular-app2:
+    container_name: angular-app2
+    image: sammmmmm/angular-app2:1.0
     ports:
       - "5001:80"
 
