@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/api/annonce")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://check-consulting.net:5001/annonce/filter"})
 public class AnnonceController {
     private final AnnonceService annonceService;
     private final AnnonceMapper annonceMapper;

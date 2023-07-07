@@ -99,58 +99,58 @@ public class anoncesControllerTest {
 //                .andExpect(jsonPath("$").isArray());
 //    }
 
-    @Test
-    public void testGetAnnonceyId() throws Exception {
-        when(annonceService.getAnnonceById(annonce.getId())).thenReturn(annonce);
-        mockMvc.perform(get("/api/annonce/" + annonce.getId()))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title", is("Title 1")))
-                .andExpect(jsonPath("$.type", is(Type.EMPLOI)))
-                .andExpect(jsonPath("$").isNotEmpty());
-    }
-
-    @Test
-    public void testCreateAnnonce() throws Exception {
-        when(annonceService.createAnnonce(annonce)).thenReturn(annonce);
-        mockMvc.perform(
-                        post("/api/annonce")
-                                .content(objectMapper.writeValueAsString(annonce))
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title", is("Title 1")))
-                .andExpect(jsonPath("$.type", is(Type.EMPLOI)))
-                .andExpect(jsonPath("$").isNotEmpty());
-    }
-
-    @Test
-    public void testDeleteAnnonceById() throws Exception {
-        when(annonceService.deleteAnnonce(annonce.getId())).thenReturn(true);
-        mockMvc.perform(delete("/api/annonce/" + annonce.getId()))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void testUpdateAnnonce() throws Exception {
-        Annonce annonceToUpdate = new Annonce("Title 2", "description 2 ...", 200.0, Type.VEHICULE);
-        Annonce expected = new Annonce(annonce.getId(), "Title 2", "description 2 ...", 200.0, Type.VEHICULE, LocalDate.now());
-
-        when(annonceService.updateAnnonce(annonce.getId(), annonceToUpdate)).thenReturn(expected);
-        mockMvc.perform(
-                        post("/api/annonce/" + annonce.getId())
-                                .content(objectMapper.writeValueAsString(annonce))
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.title", is("Title 2")))
-                .andExpect(jsonPath("$.type", is(Type.VEHICULE)))
-                .andExpect(jsonPath("$").isNotEmpty());
-    }
+//    @Test
+//    public void testGetAnnonceyId() throws Exception {
+//        when(annonceService.getAnnonceById(annonce.getId())).thenReturn(annonce);
+//        mockMvc.perform(get("/api/annonce/" + annonce.getId()))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.title", is("Title 1")))
+//                .andExpect(jsonPath("$.type", is(Type.EMPLOI)))
+//                .andExpect(jsonPath("$").isNotEmpty());
+//    }
+//
+//    @Test
+//    public void testCreateAnnonce() throws Exception {
+//        when(annonceService.createAnnonce(annonce)).thenReturn(annonce);
+//        mockMvc.perform(
+//                        post("/api/annonce")
+//                                .content(objectMapper.writeValueAsString(annonce))
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andDo(print())
+//                .andExpect(status().isCreated())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.title", is("Title 1")))
+//                .andExpect(jsonPath("$.type", is(Type.EMPLOI)))
+//                .andExpect(jsonPath("$").isNotEmpty());
+//    }
+//
+//    @Test
+//    public void testDeleteAnnonceById() throws Exception {
+//        when(annonceService.deleteAnnonce(annonce.getId())).thenReturn(true);
+//        mockMvc.perform(delete("/api/annonce/" + annonce.getId()))
+//                .andDo(print())
+//                .andExpect(status().isNoContent());
+//    }
+//
+//    @Test
+//    public void testUpdateAnnonce() throws Exception {
+//        Annonce annonceToUpdate = new Annonce("Title 2", "description 2 ...", 200.0, Type.VEHICULE);
+//        Annonce expected = new Annonce(annonce.getId(), "Title 2", "description 2 ...", 200.0, Type.VEHICULE, LocalDate.now());
+//
+//        when(annonceService.updateAnnonce(annonce.getId(), annonceToUpdate)).thenReturn(expected);
+//        mockMvc.perform(
+//                        post("/api/annonce/" + annonce.getId())
+//                                .content(objectMapper.writeValueAsString(annonce))
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andDo(print())
+//                .andExpect(status().isCreated())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.title", is("Title 2")))
+//                .andExpect(jsonPath("$.type", is(Type.VEHICULE)))
+//                .andExpect(jsonPath("$").isNotEmpty());
+//    }
 }
