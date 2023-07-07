@@ -25,7 +25,7 @@ node("ci-node") {
         withCredentials([usernamePassword(credentialsId: 's-docker-hub', usernameVariable: 'username',
                 passwordVariable: 'password')]) {
             sh "sudo docker login -u $username -p $password"
-            sh "sudo docker tag api sammmmmm/api-app:1.0"
+            sh "sudo docker tag api-app sammmmmm/api-app:1.0"
             sh "sudo docker push sammmmmm/api-app:1.0"
             sh "sudo docker rmi sammmmmm/api-app:1.0"
             sh "sudo docker rmi api-app"
