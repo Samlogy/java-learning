@@ -27,12 +27,15 @@ jobs:
 
       - name: docker login
         env:
-          DOCKER_USERNAME: ${{secret.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secret.DOCKER_PASSWORD}}
+          DOCKER_USERNAME: ${{env.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{env.DOCKER_PASSWORD}}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker build -t angular-app2 .
+          docker tag angular-app2 $DOCKER_USERNAME/angular-app2:1.0
+          docker push $DOCKER_USERNAME/angular-app2:1.0
 
-      - name: docker build / push
-          run: | 
-            docker build -t angular-app2 .
-            docker tag angular-app2 ${{secret.DOCKER_USERNAME}}/angular-app2:1.0
-            docker push ${{secret.DOCKER_USERNAME}}/angular-app2:1.0
+    # - name: build and push docker image
+    # run: |
+    #   docker build -t angular-app2 .
+    #   docker tag angular-app2 ${{secret.DOCKER_USERNAME}}/angular-app2:1.0
+    #   docker push ${{secret.DOCKER_USERNAME}}/angular-app2:1.0
