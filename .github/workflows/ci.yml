@@ -4,15 +4,17 @@ on:
     branches:
       - ["angular-github-actions"]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout repository
-      #   uses: actions/checkout@v2
-      # - name: Use Node.js
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: "18.x"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+
       - name: Run Npm
         run: npm i
 
@@ -24,13 +26,13 @@ jobs:
         run: npm run build
 
       - name: docker login
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
+        env:
           DOCKER_USERNAME: ${{secret.DOCKER_USERNAME}}
           DOCKER_PASSWORD: ${{secret.DOCKER_PASSWORD}}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: docker build / push
-        run: docker build -t angular-app2 .
-          docker tag angular-app2 sammmmmm/angular-app2:1.0
-          docker push sammmmmm/angular-app2:1.0
+          run: | 
+            docker build -t angular-app2 .
+            docker tag angular-app2 ${{secret.DOCKER_USERNAME}}/angular-app2:1.0
+            docker push ${{secret.DOCKER_USERNAME}}/angular-app2:1.0
