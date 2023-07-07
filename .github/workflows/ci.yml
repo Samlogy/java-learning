@@ -25,10 +25,10 @@ jobs:
       - name: build
         run: npm run build
 
-      - name: docker login
+      - name: docker login, build, push image
         env:
-          DOCKER_USERNAME: ${{env.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{env.DOCKER_PASSWORD}}
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build -t angular-app2 .
