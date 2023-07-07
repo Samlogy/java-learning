@@ -1,4 +1,9 @@
 export const environmentDev = {
   production: false,
-  apiUrl: 'http://localhost:8080/api/annonce',
+  serverUrl: '/api',
+  keycloak: {
+    issuer: 'http://localhost:8080/auth/', // Url of the Identity Provider
+    realm: 'sam-realm', // Realm
+    clientId: 'sam-clientId', // clientId
+  },
 };

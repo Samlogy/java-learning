@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IAnnonce } from '../../model/annonce';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { environmentDev } from '../../../environments/environment.development';
+// import { environment } from '../../../environments/environment';
+// import { environmentDev } from '../../../environments/environment.development';
 
-const BASE_URL = environment ? environment.apiUrl : environmentDev.apiUrl;
+const BASE_URL = 'http://check-consulting.net:8082/api/annonce';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +20,6 @@ export class AnnonceService {
     priceMax?: number,
     type?: string
   ) {
-    console.log('ENV: ', environment.production);
-    console.log('URL: ', environment.apiUrl);
     return this.http.get(
       BASE_URL +
         `/filter?title=${title}&description=${description}&priceMin=${priceMin}&priceMax=${priceMax}&type=${type}`
