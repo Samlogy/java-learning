@@ -33,7 +33,7 @@ git cherry-pick hasgCommmit --> add a commit from a branch to another branch
 3. solve conflicts / push
 
 rebase interactive mode
-git rebase -i hashCommit --> squash / delete / reword --> commits
+git rebase -i hashCommit --> squash / delete / reword / split --> commits
 
 git stash:
 add changes uncommited to a stack
@@ -46,3 +46,17 @@ git blame filename --> most recent changes on file and some details
 
 git commit --amend (change previous commit msg / files)
 git add . && git commit --amend --no-commit
+
+** NB: **
+
+- add .gitignore file to ignore files/directories that should not belongs to the working dir (node_modules/.vscode/.env) \*\* add .gitattributes file (must be in working dir, but changes should trigger git) ex: (yarn-lock.json / package-lock.json)
+
+- Git Workflows: (Rebase vs Merge): 2 options: Merge / Rebase --> both have pros & cons, and be effective when used well prefer using merge when you start, then rebase when you are good at it.
+
+- opt for branch naming convention: ex: github_name/feature_name (or any other useful convention)
+
+- Commit Messages: good commit message in the present, imperative sense (clear, brief) ex: Add name field to checkout form
+
+- Pull Requests: small (hundred lines) but frequent pull request --> review process easier / faster (beug-free) / productivity increase use flags while working on feature state (the longer you not merging, the harder it will be) add pictures + good decription + associated task ticket to the Pull Request (make the reviewer job easier)
+
+- Remote repo: delete branches on merge Prevent pushes directly to master Require at least one approval before merging Require passing CI tests to merge
