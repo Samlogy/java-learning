@@ -1,27 +1,74 @@
-# FrontAngular
+# Docker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.1.
+## most important commands (docker)
 
-## Development server
+- create & start a container from image
+  docker run --name nginx-root -p 80:80 -d nginx
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- build an existing images with custom from Dockerfile
+  docker image build -t docker-build-test-image .
 
-## Code scaffolding
+- container life cycle
+  docker start container-id
+  docker stop container-id
+  docker restart container-id
+  docker pause container-id
+  docker unpause container-id
+  docker wait container-id
+  docker attach container-id
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- execute command on the container
+  docker exec -ti nginx-root /bin/bash
 
-## Build
+docker rename old_container_name new_container_name
+docker kill container_name(s) container(ids)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+docker rm container_or_image_name_or_id
+docker rmi images_name_or_id
 
-## Running unit tests
+- display container logs (errors / issues)
+  docker logs container_name_or_id
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- detail on docker version installed on system
+  docker version
 
-## Running end-to-end tests
+- details on docker host where docker is installed
+  docker info
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- docker hub (registery)
+  docker login -u username -p password
+  docker logout
+  docker push repo/image_name:version
+  docker pull image_name
 
-## Further help
+- list containers
+  docker ps (running)
+  docker ps -a (all containers)
+  docker ps -f "status=exited" (stopped containers)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+NB: new syntaxe replace ps --> container
+
+- filter container by status
+  docker container ls --filter "status=exited"
+
+status: created, exited, paused, dead, restarting, running
+
+- hisory of an image:
+  docker history iamge_name
+
+- container details
+  docker stats
+
+- list running processes
+  docker top
+
+docker diff
+
+## docker-compose
+
+docker-compose build (build)
+docker-compose up (build + start)
+docker-compose down (stop, delete iamges, network, volumes associated)
+docker-compose stop (stop)
+docker-compose images (images)
+docker-compose ps (containers)
